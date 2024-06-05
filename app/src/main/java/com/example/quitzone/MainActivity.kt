@@ -1,5 +1,7 @@
 package com.example.quitzone
 
+import LogIn
+import SignUp
 import android.os.Bundle
 import android.provider.CalendarContract
 import androidx.activity.ComponentActivity
@@ -42,10 +44,61 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             QuitZoneTheme {
-                GenderPage()
+                LogIn()
             }
         }
     }
 }
 
+
+@Composable
+fun StepText(name : String){
+    Text(
+        text = name,
+        style = TextStyle(
+            color = Color.Magenta,
+            fontSize = 15.sp,
+
+            )
+    )
+}
+
+@Composable
+fun QuestionText(name: String){
+    Text(
+        text = name,
+        fontSize = 20.sp,
+        color = Color.Black,
+        fontWeight = FontWeight.SemiBold
+    )
+}
+
+@Composable
+fun BoxGender(name: Color) {
+    Box(
+        modifier = Modifier
+            .size(width = 140.dp, height = 202.dp)
+            .background(name, shape = RoundedCornerShape(20.dp))
+    )
+}
+
+@Composable
+fun GenderPage(){
+    Scaffold(modifier = Modifier.padding(15.dp)) { innerPadding ->
+        Column (modifier = Modifier
+            .padding(innerPadding)
+            .fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            StepText(name = "STEP 1/7")
+            QuestionText(name = "Which one are you?")
+            Row (horizontalArrangement = Arrangement.SpaceBetween){
+                BoxGender(Ungu)
+                Spacer(modifier = Modifier.width(16.dp))
+                BoxGender(Putih)
+            }
+        }
+    }
+}
 
