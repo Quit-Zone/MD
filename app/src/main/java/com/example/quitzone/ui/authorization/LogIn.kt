@@ -43,7 +43,7 @@ import com.example.quitzone.ui.theme.Ungu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignUp() {
+fun LogIn() {
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -55,7 +55,7 @@ fun SignUp() {
                 title = {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                         Text(
-                            text = "SignUp",
+                            text = "LogIn",
                             style = TextStyle(
                                 color = Color.Black,
                                 fontSize = 25.sp,
@@ -79,43 +79,7 @@ fun SignUp() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp),
-                horizontalAlignment = Alignment.Start
-            ) {
-                Text(
-                    text = "Username",
-                    style = TextStyle(
-                        color = Color.Black,
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                )
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp)
-                        .clip(RoundedCornerShape(10.dp))
-                        .background(Color.LightGray)
-                        .border(1.dp, Color.Transparent, RoundedCornerShape(10.dp))
-                ) {
-                    TextField(
-                        value = username,
-                        onValueChange = { username = it },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(Color.Transparent),
-                        placeholder = { Text("Username") },
-                        colors = TextFieldDefaults.textFieldColors(
-                            focusedIndicatorColor = Color.Transparent, // Hide the focused border
-                            unfocusedIndicatorColor = Color.Transparent // Hide the unfocused border
-                        )
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(12.dp))
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -199,13 +163,13 @@ fun SignUp() {
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp),
                 colors = ButtonDefaults.buttonColors(Ungu)
             ) {
-                Text("Sign Up")
+                Text("Log In")
             }
             Spacer(modifier = Modifier.height(24.dp))
 
             ClickableText(
                 text = buildAnnotatedString {
-                    append("Have an Account?")
+                    append("Don't have account?")
                     addStyle(
                         style = SpanStyle(
                             color = Color.Black,

@@ -1,5 +1,7 @@
 package com.example.quitzone
 
+import LogIn
+import SignUp
 import android.os.Bundle
 import android.provider.CalendarContract
 import androidx.activity.ComponentActivity
@@ -41,7 +43,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             QuitZoneTheme {
-                GenderPage()
+                LogIn()
             }
         }
     }
