@@ -14,7 +14,8 @@ import androidx.compose.ui.platform.LocalContext
 private val LightColorScheme = lightColorScheme(
     primary = Ungu,
     secondary = PurpleGrey40,
-    tertiary = Pink40
+    tertiary = Pink40,
+    background = background
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
