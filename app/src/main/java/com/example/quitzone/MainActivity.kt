@@ -41,26 +41,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             QuitZoneTheme {
-                Scaffold(modifier = Modifier.padding(15.dp)) { innerPadding ->
-                    Column (modifier = Modifier
-                        .padding(innerPadding)
-                        .fillMaxSize(),
-                        verticalArrangement = Arrangement.SpaceBetween,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        StepText(name = "STEP 1/7")
-                        QuestionText(name = "Which one are you?")
-                        Row (horizontalArrangement = Arrangement.SpaceBetween){
-                            BoxGender(Ungu)
-                            Spacer(modifier = Modifier.width(16.dp))
-                            BoxGender(Putih)
-                        }
-
-
-
-                    }
-
-                }
+                GenderPage()
             }
         }
     }
@@ -96,4 +77,24 @@ fun BoxGender(name: Color) {
             .size(width = 140.dp, height = 202.dp)
             .background(name, shape = RoundedCornerShape(20.dp))
     )
+}
+
+@Composable
+fun GenderPage(){
+    Scaffold(modifier = Modifier.padding(15.dp)) { innerPadding ->
+        Column (modifier = Modifier
+            .padding(innerPadding)
+            .fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            StepText(name = "STEP 1/7")
+            QuestionText(name = "Which one are you?")
+            Row (horizontalArrangement = Arrangement.SpaceBetween){
+                BoxGender(Ungu)
+                Spacer(modifier = Modifier.width(16.dp))
+                BoxGender(Putih)
+            }
+        }
+    }
 }
