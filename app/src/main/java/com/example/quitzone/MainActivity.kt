@@ -23,6 +23,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -33,6 +34,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.quitzone.ui.questionare.GenderPage
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
@@ -44,61 +49,19 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             QuitZoneTheme {
-                LogIn()
+                val navController = rememberNavController()
+                NavHost(navController, startDestination = "login") {
+                    composable("login") { LogIn(navController) }
+                    composable("signup") { SignUp(navController) }
+                    composable("genderpage") { GenderPage(navController) }
+                }
             }
         }
     }
 }
 
 
-@Composable
-fun StepText(name : String){
-    Text(
-        text = name,
-        style = TextStyle(
-            color = Color.Magenta,
-            fontSize = 15.sp,
 
-            )
-    )
-}
 
-@Composable
-fun QuestionText(name: String){
-    Text(
-        text = name,
-        fontSize = 20.sp,
-        color = Color.Black,
-        fontWeight = FontWeight.SemiBold
-    )
-}
 
-@Composable
-fun BoxGender(name: Color) {
-    Box(
-        modifier = Modifier
-            .size(width = 140.dp, height = 202.dp)
-            .background(name, shape = RoundedCornerShape(20.dp))
-    )
-}
-
-@Composable
-fun GenderPage(){
-    Scaffold(modifier = Modifier.padding(15.dp)) { innerPadding ->
-        Column (modifier = Modifier
-            .padding(innerPadding)
-            .fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            StepText(name = "STEP 1/7")
-            QuestionText(name = "Which one are you?")
-            Row (horizontalArrangement = Arrangement.SpaceBetween){
-                BoxGender(Ungu)
-                Spacer(modifier = Modifier.width(16.dp))
-                BoxGender(Putih)
-            }
-        }
-    }
-}
 

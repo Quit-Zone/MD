@@ -31,13 +31,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.quitzone.R
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
 
 @Composable
-fun GenderPage() {
+fun GenderPage(navController: NavController) {
     Scaffold(modifier = Modifier.padding(15.dp)) { innerPadding ->
         Column(
             modifier = Modifier
