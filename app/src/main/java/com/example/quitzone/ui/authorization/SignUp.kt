@@ -40,10 +40,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
+import com.example.quitzone.viewmodel.SignUpViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.example.quitzone.ui.theme.QuitZoneTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignUp() {
+fun SignUp(navController: NavController) {
+    val viewModel: SignUpViewModel = viewModel()
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -194,13 +199,26 @@ fun SignUp() {
             Spacer(modifier = Modifier.height(24.dp))
             Button(
                 onClick = {
-                    // Handle sign up logic here
+                    viewModel.signUp(username, email, password)
+                    navController.navigate("genderpage")
                 },
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp),
-                colors = ButtonDefaults.buttonColors(Ungu)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp),
+                colors = ButtonDefaults.buttonColors(Color(0xFF6200EE)) // Use your Ungu color
             ) {
                 Text("Sign Up")
             }
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Text(
+                text = viewModel.signUpState,
+                color = Color.Black,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+
             Spacer(modifier = Modifier.height(24.dp))
 
             ClickableText(
@@ -210,15 +228,14 @@ fun SignUp() {
                         style = SpanStyle(
                             color = Color.Black,
                             fontSize = 15.sp,
-                            //textDecoration = TextDecoration.Underline,
-                            fontWeight = FontWeight.SemiBold, // Add underline
+                            fontWeight = FontWeight.SemiBold,
                         ),
                         start = 0,
                         end = length
                     )
                 },
                 onClick = {
-                    // Handle navigation to login screen
+                    navController.navigate("login")
                 },
                 modifier = Modifier
                     .padding(10.dp)
@@ -226,7 +243,6 @@ fun SignUp() {
             )
             Spacer(modifier = Modifier.height(100.dp))
         }
-
     }
 }
 
