@@ -38,7 +38,13 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.quitzone.ui.GetStartedPage
+import com.example.quitzone.ui.questionare.AgePage
+import com.example.quitzone.ui.questionare.CigarretesPricePage
 import com.example.quitzone.ui.questionare.GenderPage
+import com.example.quitzone.ui.questionare.HeightPage
+import com.example.quitzone.ui.questionare.SmokingHabitsPage
+import com.example.quitzone.ui.questionare.WeightPage
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.QuitZoneTheme
@@ -50,11 +56,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             QuitZoneTheme {
                 val navController = rememberNavController()
-                NavHost(navController, startDestination = "login") {
-                    composable("login") { LogIn(navController) }
-                    composable("signup") { SignUp(navController) }
-                    composable("genderpage") { GenderPage(navController) }
-                }
+                //NavHost(navController, startDestination = "login") {
+                    //composable("login") { LogIn(navController) }
+                    //composable("signup") { SignUp(navController) }
+                    //composable("genderpage") { GenderPage(navController) }
+
+                //}
+            GetStartedPage()
             }
         }
     }
