@@ -49,12 +49,13 @@ fun GenderPage(navController: NavController) {
         ) {
             StepText(name = "STEP 1/7")
             Box {
-                Column (horizontalAlignment = Alignment.CenterHorizontally){
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     QuestionText(name = "Which one are you?")
                     Spacer(modifier = Modifier.height(25.dp))
                     Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                        Column (horizontalAlignment = Alignment.CenterHorizontally) {
-                            val backgroundColor = remember { mutableStateOf(Ungu) } // Assuming Ungu is a Color variable
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            val backgroundColor =
+                                remember { mutableStateOf(Ungu) } // Assuming Ungu is a Color variable
 
                             BoxGender(
                                 backgroundColor = backgroundColor,
@@ -64,8 +65,9 @@ fun GenderPage(navController: NavController) {
                             QuestionText(name = "Man")
                         }
                         Spacer(modifier = Modifier.width(10.dp))
-                        Column (horizontalAlignment = Alignment.CenterHorizontally){
-                            val backgroundColor = remember { mutableStateOf(Putih) } // Assuming Ungu is a Color variable
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            val backgroundColor =
+                                remember { mutableStateOf(Putih) } // Assuming Ungu is a Color variable
 
                             BoxGender(
                                 backgroundColor = backgroundColor,
@@ -76,11 +78,13 @@ fun GenderPage(navController: NavController) {
                         }
                     }
                     Spacer(modifier = Modifier.height(25.dp))
-                    DescText(name = "To give you a customize experience \n" +
-                            "we need to know your gender")
+                    DescText(
+                        name = "To give you a customize experience \n" +
+                                "we need to know your gender"
+                    )
                 }
             }
-            Row (horizontalArrangement = Arrangement.SpaceBetween){
+            Row(horizontalArrangement = Arrangement.SpaceBetween) {
                 BoxButton(
                     text = "Previous",
                     backgroundColor = Putih, // Assuming Putih is a Color variable
@@ -110,7 +114,7 @@ fun StepText(name: String) {
     Text(
         text = name,
         style = TextStyle(
-            color = Color.Magenta,
+            color = Ungu,
             fontSize = 15.sp,
         )
     )
@@ -167,10 +171,6 @@ fun BoxGender(
 }
 
 
-
-
-
-
 @Composable
 fun BoxButton(
     text: String,
@@ -192,4 +192,6 @@ fun BoxButton(
         )
     }
 }
+
+
 
