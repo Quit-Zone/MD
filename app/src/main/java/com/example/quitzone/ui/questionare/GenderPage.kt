@@ -31,14 +31,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.quitzone.R
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
+import com.example.quitzone.viewmodel.GenderViewModel
 
 @Composable
 fun GenderPage(navController: NavController) {
+    val genderViewModel: GenderViewModel = viewModel()
     Scaffold(modifier = Modifier.padding(15.dp)) { innerPadding ->
         Column(
             modifier = Modifier
@@ -47,31 +50,33 @@ fun GenderPage(navController: NavController) {
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            StepText(name = "STEP 1/7")
+
             Box {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    StepText(name = "STEP 1/7")
+                    Spacer(modifier = Modifier.height(72.dp))
                     QuestionText(name = "Which one are you?")
                     Spacer(modifier = Modifier.height(25.dp))
                     Row(horizontalArrangement = Arrangement.SpaceBetween) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            val backgroundColor =
-                                remember { mutableStateOf(Ungu) } // Assuming Ungu is a Color variable
+                            val backgroundColor = remember { mutableStateOf(Ungu) } // Assuming Ungu is a Color variable
 
                             BoxGender(
                                 backgroundColor = backgroundColor,
-                                imageResource = R.drawable.man
+                                imageResource = R.drawable.man,
+                                onClick = { genderViewModel.selectGender("male") }
                             )
                             Spacer(modifier = Modifier.height(3.dp))
                             QuestionText(name = "Man")
                         }
                         Spacer(modifier = Modifier.width(10.dp))
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            val backgroundColor =
-                                remember { mutableStateOf(Putih) } // Assuming Ungu is a Color variable
+                            val backgroundColor = remember { mutableStateOf(Putih) } // Assuming Ungu is a Color variable
 
                             BoxGender(
                                 backgroundColor = backgroundColor,
-                                imageResource = R.drawable.women
+                                imageResource = R.drawable.women,
+                                onClick = { genderViewModel.selectGender("female") }
                             )
                             Spacer(modifier = Modifier.height(3.dp))
                             QuestionText(name = "Women")
@@ -100,7 +105,7 @@ fun GenderPage(navController: NavController) {
                     textColor = Putih
                 ) {
                     // Handle the button click
-                    println("Next button clicked!")
+                    println("Next button clicked! Selected gender: ${genderViewModel.selectedGender}")
                 }
 
             }
@@ -144,7 +149,8 @@ fun DescText(name: String) {
 @Composable
 fun BoxGender(
     backgroundColor: MutableState<Color>, // Use a mutable state to track the background color
-    imageResource: Int
+    imageResource: Int,
+    onClick: () -> Unit // Add an onClick parameter to handle clicks
 ) {
     val originalColor = remember { backgroundColor.value }
 
@@ -153,6 +159,7 @@ fun BoxGender(
             .size(width = 140.dp, height = 202.dp)
             .background(backgroundColor.value, shape = RoundedCornerShape(20.dp))
             .clickable { // Make the box clickable
+                onClick() // Invoke the onClick lambda
                 // Toggle background color between original color and Magenta
                 backgroundColor.value = if (backgroundColor.value == originalColor) {
                     Color.Magenta

@@ -15,12 +15,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -29,17 +31,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
+import com.example.quitzone.viewmodel.HeightViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HeightPage() {
-    val height = remember { mutableStateOf("") }
+    val viewModel: HeightViewModel = viewModel()
+    val height by viewModel.height
 
     Scaffold(modifier = Modifier.padding(15.dp)) { innerPadding ->
         Column(
@@ -67,8 +73,6 @@ fun HeightPage() {
                     verticalAlignment = Alignment.Bottom,
                     horizontalArrangement = Arrangement.Center
                 ) {
-                    // Button to decrease age
-                    // Age TextField
                     Box(
                         modifier = Modifier
                             .width(80.dp)
@@ -78,8 +82,8 @@ fun HeightPage() {
                             .border(1.dp, Color.Transparent, RoundedCornerShape(10.dp))
                     ) {
                         TextField(
-                            value = height.value,
-                            onValueChange = { newHeigth -> height.value = newHeigth.filter { it.isDigit() } },
+                            value = height,
+                            onValueChange = { newHeight -> viewModel.updateHeight(newHeight) },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .background(Color.Transparent),
@@ -88,18 +92,20 @@ fun HeightPage() {
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 textAlign = TextAlign.Center
-
                             ),
                             colors = TextFieldDefaults.textFieldColors(
                                 focusedIndicatorColor = Color.Transparent, // Hide the focused border
                                 unfocusedIndicatorColor = Color.Transparent // Hide the unfocused border
+                            ),
+                            keyboardOptions = KeyboardOptions.Default.copy(
+                                keyboardType = KeyboardType.Number
                             )
                         )
                     }
                     Spacer(modifier = Modifier.width(10.dp))
-                    Column (
+                    Column(
                         verticalArrangement = Arrangement.Bottom
-                    ){
+                    ) {
                         Text(
                             text = "cm",
                             style = TextStyle(
@@ -110,12 +116,11 @@ fun HeightPage() {
                             )
                         )
                     }
-
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
-                    text = "To give you a customize experience \n" +
-                            "we need to know how tall are you",
+                    text = "To give you a customized experience \n" +
+                            "we need to know how tall you are",
                     style = TextStyle(
                         color = desctext,
                         fontSize = 14.sp,
@@ -136,13 +141,13 @@ fun HeightPage() {
                 Spacer(modifier = Modifier.width(10.dp))
                 BoxButton(
                     text = "Next",
-                    backgroundColor = Ungu, // Assuming Putih is a Color variable
+                    backgroundColor = Ungu, // Assuming Ungu is a Color variable
                     textColor = Putih
                 ) {
                     // Handle the button click
-                    println("Next button clicked!")
+                    val heightAsFloat = viewModel.getHeightAsFloat()
+                    println("Next button clicked! Height: $heightAsFloat cm")
                 }
-
             }
         }
     }

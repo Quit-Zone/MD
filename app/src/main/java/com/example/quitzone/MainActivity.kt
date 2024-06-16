@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             QuitZoneTheme {
                 val navController = rememberNavController()
-                NavHost(navController, startDestination = "locationpage") {
+                NavHost(navController, startDestination = "hobbypage") {
                     composable("login") { LogIn(navController) }
                     composable("signup") { SignUp(navController) }
                     composable("genderpage") { GenderPage(navController) }

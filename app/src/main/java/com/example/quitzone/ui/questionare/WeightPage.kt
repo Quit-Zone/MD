@@ -14,12 +14,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -28,17 +30,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
+import com.example.quitzone.viewmodel.WeightViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WeightPage() {
-    val weight = remember { mutableStateOf("") }
+    val viewModel: WeightViewModel = viewModel()
+    val weight by viewModel.weight
 
     Scaffold(modifier = Modifier.padding(15.dp)) { innerPadding ->
         Column(
@@ -66,8 +72,6 @@ fun WeightPage() {
                     verticalAlignment = Alignment.Bottom,
                     horizontalArrangement = Arrangement.Center
                 ) {
-                    // Button to decrease age
-                    // Age TextField
                     Box(
                         modifier = Modifier
                             .width(80.dp)
@@ -77,8 +81,8 @@ fun WeightPage() {
                             .border(1.dp, Color.Transparent, RoundedCornerShape(10.dp))
                     ) {
                         TextField(
-                            value = weight.value,
-                            onValueChange = { newWeigth -> weight.value = newWeigth.filter { it.isDigit() } },
+                            value = weight,
+                            onValueChange = { newWeight -> viewModel.updateWeight(newWeight) },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .background(Color.Transparent),
@@ -87,18 +91,20 @@ fun WeightPage() {
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 textAlign = TextAlign.Center
-
                             ),
                             colors = TextFieldDefaults.textFieldColors(
                                 focusedIndicatorColor = Color.Transparent, // Hide the focused border
                                 unfocusedIndicatorColor = Color.Transparent // Hide the unfocused border
+                            ),
+                            keyboardOptions = KeyboardOptions.Default.copy(
+                                keyboardType = KeyboardType.Number
                             )
                         )
                     }
                     Spacer(modifier = Modifier.width(10.dp))
-                    Column (
+                    Column(
                         verticalArrangement = Arrangement.Bottom
-                    ){
+                    ) {
                         Text(
                             text = "kg",
                             style = TextStyle(
@@ -109,11 +115,10 @@ fun WeightPage() {
                             )
                         )
                     }
-
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
-                    text = "To give you a customize experience \n" +
+                    text = "To give you a customized experience \n" +
                             "we need to know what is your weight",
                     style = TextStyle(
                         color = desctext,
@@ -135,14 +140,16 @@ fun WeightPage() {
                 Spacer(modifier = Modifier.width(10.dp))
                 BoxButton(
                     text = "Next",
-                    backgroundColor = Ungu, // Assuming Putih is a Color variable
+                    backgroundColor = Ungu, // Assuming Ungu is a Color variable
                     textColor = Putih
                 ) {
                     // Handle the button click
-                    println("Next button clicked!")
+                    val weightAsFloat = viewModel.getWeightAsFloat()
+                    println("Next button clicked! Weight: $weightAsFloat kg")
                 }
-
             }
         }
     }
 }
+
+
