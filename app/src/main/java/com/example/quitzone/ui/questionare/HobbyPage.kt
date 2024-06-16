@@ -43,16 +43,13 @@ fun HobbyPage(navController: NavController) {
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            StepText(name = "STEP 6/10")
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(
-                    text = "Hobbies",
-                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                    color = Color.Black,
-                )
+                StepText(name = "STEP 6/10")
+                Spacer(modifier = Modifier.height(72.dp))
+                QuestionText(name = "Hobbies")
                 Spacer(modifier = Modifier.height(25.dp))
                 TextField(
                     value = selectedHobbies.joinToString(", "),
