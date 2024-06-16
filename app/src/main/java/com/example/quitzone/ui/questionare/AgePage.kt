@@ -21,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -32,14 +33,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
+import com.example.quitzone.viewmodel.AgeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AgePage() {
-    val age = remember { mutableStateOf("") }
+    val ageViewModel: AgeViewModel = viewModel()
+    val ageState = ageViewModel.age.collectAsState()
 
     Scaffold(modifier = Modifier.padding(15.dp)) { innerPadding ->
         Column(
@@ -68,7 +72,7 @@ fun AgePage() {
                             .background(Ungu)
                             .border(1.dp, Color.Transparent, RoundedCornerShape(10.dp))
                             .clickable {
-                                age.value = (age.value.toIntOrNull() ?: 0).coerceAtLeast(1).minus(1).toString()
+                                ageViewModel.decreaseAge()
                             }
                     ) {
                         Text(
@@ -89,8 +93,8 @@ fun AgePage() {
                             .border(1.dp, Color.Transparent, RoundedCornerShape(10.dp))
                     ) {
                         TextField(
-                            value = age.value,
-                            onValueChange = { newAge -> age.value = newAge.filter { it.isDigit() } },
+                            value = ageState.value.toString(),
+                            onValueChange = { newAge -> ageViewModel.setAge(newAge) },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .background(Color.Transparent),
@@ -99,7 +103,6 @@ fun AgePage() {
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 textAlign = TextAlign.Center
-
                             ),
                             colors = TextFieldDefaults.textFieldColors(
                                 focusedIndicatorColor = Color.Transparent, // Hide the focused border
@@ -117,7 +120,7 @@ fun AgePage() {
                             .background(Ungu)
                             .border(1.dp, Color.Transparent, RoundedCornerShape(10.dp))
                             .clickable {
-                                age.value = (age.value.toIntOrNull() ?: 0).coerceAtLeast(1).plus(1).toString()
+                                ageViewModel.increaseAge()
                             }
                     ) {
                         Text(
@@ -158,8 +161,8 @@ fun AgePage() {
                     // Handle the button click
                     println("Next button clicked!")
                 }
-
             }
         }
     }
 }
+
