@@ -60,15 +60,8 @@ fun HeightPage() {
             ) {
                 StepText(name = "STEP 7/10")
                 Spacer(modifier = Modifier.height(72.dp))
-                Text(
-                    text = "How tall are you?",
-                    style = TextStyle(
-                        color = Color.Black,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                )
-                Spacer(modifier = Modifier.height(20.dp))
+                QuestionText(name = "How tall are you?")
+                Spacer(modifier = Modifier.height(25.dp))
                 Row(
                     verticalAlignment = Alignment.Bottom,
                     horizontalArrangement = Arrangement.Center

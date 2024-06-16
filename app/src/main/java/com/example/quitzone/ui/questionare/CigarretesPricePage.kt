@@ -52,17 +52,11 @@ fun CigarretesPricePage() {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                StepText(name = "STEP 5/10")
+                StepText(name = "STEP 10/10")
                 Spacer(modifier = Modifier.height(72.dp))
-                Text(
-                    text = "How much price for your cigarettes?",
-                    style = TextStyle(
-                        color = Color.Black,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                )
+                QuestionText(name = "How much price for your cigarettes?")
                 Spacer(modifier = Modifier.height(20.dp))
+
                 Row(
                     verticalAlignment = Alignment.Bottom,
                     horizontalArrangement = Arrangement.Center

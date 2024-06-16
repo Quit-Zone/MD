@@ -9,9 +9,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.quitzone.ui.questionare.AlcoholConsumptionPage
 import com.example.quitzone.ui.questionare.GenderPage
 import com.example.quitzone.ui.questionare.HobbyPage
 import com.example.quitzone.ui.questionare.LocationPage
+import com.example.quitzone.ui.questionare.PhysicalActivityPage
+import com.example.quitzone.ui.questionare.SmokingHabitsPage
 import com.example.quitzone.ui.theme.QuitZoneTheme
 
 class MainActivity : ComponentActivity() {
@@ -27,6 +30,9 @@ class MainActivity : ComponentActivity() {
                     composable("genderpage") { GenderPage(navController) }
                     composable("hobbypage") { HobbyPage(navController) }
                     composable("locationpage") { LocationPage(navController) }
+                    composable("smokinghabits") { SmokingHabitsPage(navController) }
+                    composable("alcoholconsumption") { AlcoholConsumptionPage(navController) }
+                    composable("physicalactivity") { PhysicalActivityPage(navController) }
                 }
             }
         }

@@ -59,15 +59,8 @@ fun WeightPage() {
             ) {
                 StepText(name = "STEP 8/10")
                 Spacer(modifier = Modifier.height(72.dp))
-                Text(
-                    text = "What’s your weight?",
-                    style = TextStyle(
-                        color = Color.Black,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                )
-                Spacer(modifier = Modifier.height(20.dp))
+                QuestionText(name = "What’s your weight?")
+                Spacer(modifier = Modifier.height(25.dp))
                 Row(
                     verticalAlignment = Alignment.Bottom,
                     horizontalArrangement = Arrangement.Center
