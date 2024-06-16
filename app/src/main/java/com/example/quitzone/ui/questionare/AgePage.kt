@@ -54,15 +54,8 @@ fun AgePage() {
             ) {
                 StepText(name = "STEP 1/10")
                 Spacer(modifier = Modifier.height(72.dp))
-                Text(
-                    text = "How Old Are You?",
-                    style = TextStyle(
-                        color = Color.Black,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                )
-                Spacer(modifier = Modifier.height(20.dp))
+                QuestionText(name = "How Old Are You?")
+                Spacer(modifier = Modifier.height(25.dp))
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {

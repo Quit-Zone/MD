@@ -47,9 +47,11 @@ fun GenderPage(navController: NavController) {
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            StepText(name = "STEP 1/7")
+
             Box {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    StepText(name = "STEP 2/10")
+                    Spacer(modifier = Modifier.height(72.dp))
                     QuestionText(name = "Which one are you?")
                     Spacer(modifier = Modifier.height(25.dp))
                     Row(horizontalArrangement = Arrangement.SpaceBetween) {
@@ -124,7 +126,7 @@ fun StepText(name: String) {
 fun QuestionText(name: String) {
     Text(
         text = name,
-        fontSize = 20.sp,
+        fontSize = 18.sp,
         color = Color.Black,
         fontWeight = FontWeight.SemiBold
     )
@@ -192,6 +194,7 @@ fun BoxButton(
         )
     }
 }
+
 
 
 
