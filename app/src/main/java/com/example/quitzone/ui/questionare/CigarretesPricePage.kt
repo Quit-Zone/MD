@@ -32,13 +32,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CigarretesPricePage() {
+fun CigarretesPricePage(navController: NavController) {
     val cigarretesPrice = remember { mutableStateOf("") }
 
     Scaffold(modifier = Modifier.padding(15.dp)) { innerPadding ->

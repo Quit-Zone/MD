@@ -95,7 +95,7 @@ fun PhysicalActivityPage(navController: NavController) {
                     backgroundColor = Putih, // Assuming Putih is a Color variable
                     textColor = Color.Black
                 ) {
-                    // Handle the button click
+                    navController.navigate("alcoholconsumption")
                     println("Previous button clicked!")
                 }
                 Spacer(modifier = Modifier.width(10.dp))
@@ -104,7 +104,8 @@ fun PhysicalActivityPage(navController: NavController) {
                     backgroundColor = Ungu, // Assuming Putih is a Color variable
                     textColor = Putih
                 ) {
-                    // Handle the button click
+                    navController.navigate("hobbypage")
+                    println("Next button clicked! Selected smoking habits: ${physicalActivityViewModel.selectedActivity.value}")
                     println("Next button clicked!")
                 }
 

@@ -159,8 +159,8 @@ fun LogIn(navController: NavController) {
             Spacer(modifier = Modifier.height(24.dp))
             Button(
                 onClick = {
-                    // viewModel.login(email, password)
-                    navController.navigate("genderpage")
+                    viewModel.login(email, password)
+                    navController.navigate("agepage")
                 },
                 modifier = Modifier
                     .fillMaxWidth()

@@ -111,7 +111,7 @@ fun HobbyPage(navController: NavController) {
                     backgroundColor = Putih, // Assuming Putih is a Color variable
                     textColor = Color.Black
                 ) {
-                    // Handle the button click
+                    navController.navigate("hobbypage")
                     println("Previous button clicked!")
                 }
                 Spacer(modifier = Modifier.width(10.dp))
@@ -120,7 +120,8 @@ fun HobbyPage(navController: NavController) {
                     backgroundColor = Ungu, // Assuming Putih is a Color variable
                     textColor = Putih
                 ) {
-                    // Handle the button click
+                    navController.navigate("heightpage")
+                    println("Next button clicked! Selected smoking habits: ${viewModel.selectedHobbies.value}")
                     println("Next button clicked!")
                 }
 

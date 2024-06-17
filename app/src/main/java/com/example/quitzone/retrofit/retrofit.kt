@@ -1,7 +1,9 @@
 package com.example.quitzone.retrofit
 
+import com.example.quitzone.`class`.Profile
 import com.example.quitzone.`class`.User
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
 
@@ -16,5 +18,7 @@ interface ApiService {
     fun login(@Body request: LoginRequest): Call<LoginResponse>
     @POST("register")
     fun signUp(@Body request: SignUpRequest): Call<SignUpResponse>
+    @POST("profile")
+    suspend fun postProfile(@Body profile: Profile.Profile): Response<Void>
 }
 
