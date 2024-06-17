@@ -36,6 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
@@ -43,7 +44,7 @@ import com.example.quitzone.viewmodel.HeightViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HeightPage() {
+fun HeightPage(navController: NavController) {
     val viewModel: HeightViewModel = viewModel()
     val height by viewModel.height
 
@@ -128,7 +129,7 @@ fun HeightPage() {
                     backgroundColor = Putih, // Assuming Putih is a Color variable
                     textColor = Color.Black
                 ) {
-                    // Handle the button click
+                    navController.navigate("hobbypage")
                     println("Previous button clicked!")
                 }
                 Spacer(modifier = Modifier.width(10.dp))
@@ -137,7 +138,7 @@ fun HeightPage() {
                     backgroundColor = Ungu, // Assuming Ungu is a Color variable
                     textColor = Putih
                 ) {
-                    // Handle the button click
+                    navController.navigate("weightpage")
                     val heightAsFloat = viewModel.getHeightAsFloat()
                     println("Next button clicked! Height: $heightAsFloat cm")
                 }

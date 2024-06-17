@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -42,6 +43,7 @@ import com.example.quitzone.viewmodel.GenderViewModel
 @Composable
 fun GenderPage(navController: NavController) {
     val genderViewModel: GenderViewModel = viewModel()
+
     Scaffold(modifier = Modifier.padding(15.dp)) { innerPadding ->
         Column(
             modifier = Modifier
@@ -50,67 +52,73 @@ fun GenderPage(navController: NavController) {
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-
-            Box {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    StepText(name = "STEP 2/10")
-                    Spacer(modifier = Modifier.height(72.dp))
-                    QuestionText(name = "Which one are you?")
-                    Spacer(modifier = Modifier.height(25.dp))
-                    Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            val backgroundColor = remember { mutableStateOf(Ungu) } // Assuming Ungu is a Color variable
-
-                            BoxGender(
-                                backgroundColor = backgroundColor,
-                                imageResource = R.drawable.man,
-                                onClick = { genderViewModel.selectGender("male") }
-                            )
-                            Spacer(modifier = Modifier.height(3.dp))
-                            QuestionText(name = "Man")
-                        }
-                        Spacer(modifier = Modifier.width(10.dp))
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            val backgroundColor = remember { mutableStateOf(Putih) } // Assuming Ungu is a Color variable
-
-                            BoxGender(
-                                backgroundColor = backgroundColor,
-                                imageResource = R.drawable.women,
-                                onClick = { genderViewModel.selectGender("female") }
-                            )
-                            Spacer(modifier = Modifier.height(3.dp))
-                            QuestionText(name = "Women")
-                        }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                StepText(name = "STEP 2/10")
+                Spacer(modifier = Modifier.height(72.dp))
+                QuestionText(name = "Which one are you?")
+                Spacer(modifier = Modifier.height(25.dp))
+                LazyRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    item {
+                        GenderOption(
+                            gender = "male",
+                            isSelected = genderViewModel.selectedGender == "male",
+                            onSelect = {
+                                genderViewModel.selectGender("male")
+                            }
+                        )
                     }
-                    Spacer(modifier = Modifier.height(25.dp))
-                    DescText(
-                        name = "To give you a customize experience \n" +
-                                "we need to know your gender"
-                    )
+                    item {
+                        GenderOption(
+                            gender = "female",
+                            isSelected = genderViewModel.selectedGender == "female",
+                            onSelect = {
+                                genderViewModel.selectGender("female")
+                            }
+                        )
+                    }
                 }
+                Spacer(modifier = Modifier.height(25.dp))
+                DescText(
+                    name = "To give you a customized experience\n" +
+                            "we need to know your gender"
+                )
             }
             Row(horizontalArrangement = Arrangement.SpaceBetween) {
                 BoxButton(
                     text = "Previous",
-                    backgroundColor = Putih, // Assuming Putih is a Color variable
+                    backgroundColor = Putih,
                     textColor = Color.Black
                 ) {
-                    // Handle the button click
+                    navController.navigate("agepage")
                     println("Previous button clicked!")
                 }
                 Spacer(modifier = Modifier.width(10.dp))
                 BoxButton(
                     text = "Next",
-                    backgroundColor = Ungu, // Assuming Putih is a Color variable
+                    backgroundColor = Ungu,
                     textColor = Putih
                 ) {
-                    // Handle the button click
+                    navController.navigate("smokinghabits")
                     println("Next button clicked! Selected gender: ${genderViewModel.selectedGender}")
                 }
-
             }
-
         }
+    }
+}
+
+@Composable
+fun GenderOption(gender: String, isSelected: Boolean, onSelect: () -> Unit) {
+    val backgroundColor = if (isSelected) Ungu else Putih
+    val imageResource = if (gender == "male") R.drawable.man else R.drawable.women
+
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        BoxGender(
+            backgroundColor = backgroundColor,
+            imageResource = imageResource,
+            onClick = onSelect
+        )
+        Spacer(modifier = Modifier.height(3.dp))
+        QuestionText(name = if (gender == "male") "Man" else "Woman")
     }
 }
 
@@ -145,28 +153,17 @@ fun DescText(name: String) {
     )
 }
 
-
 @Composable
 fun BoxGender(
-    backgroundColor: MutableState<Color>, // Use a mutable state to track the background color
+    backgroundColor: Color,
     imageResource: Int,
-    onClick: () -> Unit // Add an onClick parameter to handle clicks
+    onClick: () -> Unit
 ) {
-    val originalColor = remember { backgroundColor.value }
-
     Box(
         modifier = Modifier
             .size(width = 140.dp, height = 202.dp)
-            .background(backgroundColor.value, shape = RoundedCornerShape(20.dp))
-            .clickable { // Make the box clickable
-                onClick() // Invoke the onClick lambda
-                // Toggle background color between original color and Magenta
-                backgroundColor.value = if (backgroundColor.value == originalColor) {
-                    Color.Magenta
-                } else {
-                    originalColor
-                }
-            }
+            .background(backgroundColor, shape = RoundedCornerShape(20.dp))
+            .clickable(onClick = onClick)
     ) {
         Image(
             painter = painterResource(id = imageResource),
@@ -177,19 +174,18 @@ fun BoxGender(
     }
 }
 
-
 @Composable
 fun BoxButton(
     text: String,
     backgroundColor: Color,
     textColor: Color,
-    onClick: () -> Unit = {} // Add a default empty lambda for onClick
+    onClick: () -> Unit = {}
 ) {
     Box(
         modifier = Modifier
             .size(width = 166.dp, height = 49.dp)
             .background(backgroundColor, shape = RoundedCornerShape(10.dp))
-            .clickable(onClick = onClick), // Add the clickable modifier
+            .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -199,6 +195,8 @@ fun BoxButton(
         )
     }
 }
+
+
 
 
 

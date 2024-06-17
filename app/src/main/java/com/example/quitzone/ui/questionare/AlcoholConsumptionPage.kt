@@ -88,7 +88,7 @@ fun AlcoholConsumptionPage(navController: NavController) {
                     backgroundColor = Putih, // Assuming Putih is a Color variable
                     textColor = Color.Black
                 ) {
-                    // Handle the button click
+                    navController.navigate("smokinghabits")
                     println("Previous button clicked!")
                 }
                 Spacer(modifier = Modifier.width(10.dp))
@@ -97,7 +97,9 @@ fun AlcoholConsumptionPage(navController: NavController) {
                     backgroundColor = Ungu, // Assuming Putih is a Color variable
                     textColor = Putih
                 ) {
-                    // Handle the button click
+
+                    navController.navigate("physicalactivity")
+                    println("Next button clicked! Selected smoking habits: ${alcoholConsumptionViewModel.selectedHabit.value}")
                     println("Next button clicked!")
                 }
 

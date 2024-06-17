@@ -34,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
@@ -41,7 +42,7 @@ import com.example.quitzone.viewmodel.AgeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AgePage() {
+fun AgePage(navController: NavController) {
     val ageViewModel: AgeViewModel = viewModel()
     val ageState = ageViewModel.age.collectAsState()
 
@@ -149,7 +150,7 @@ fun AgePage() {
                     backgroundColor = Putih, // Assuming Putih is a Color variable
                     textColor = Color.Black
                 ) {
-                    // Handle the button click
+                    navController.navigate("login")
                     println("Previous button clicked!")
                 }
                 Spacer(modifier = Modifier.width(10.dp))
@@ -159,7 +160,10 @@ fun AgePage() {
                     textColor = Putih
                 ) {
                     // Handle the button click
+                    ageViewModel.age
+                    navController.navigate("genderpage")
                     println("Next button clicked!")
+                    println("Next button clicked! Selected age: ${ageViewModel.age.value}")
                 }
             }
         }
