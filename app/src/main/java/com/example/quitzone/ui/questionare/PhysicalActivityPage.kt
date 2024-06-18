@@ -23,8 +23,7 @@ import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.ungumuda
-import com.example.quitzone.viewmodel.proflingViewModel.PhysicalActivityViewModel
-import com.example.quitzone.profilingViewModel.PhysicalActivityViewModel
+import com.example.quitzone.viewmodel.profilingViewModel.PhysicalActivityViewModel
 
 @Composable
 fun PhysicalActivityPage(navController: NavController) {

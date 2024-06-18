@@ -36,14 +36,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.quitzone.viewmodel.proflingViewModel.LoginViewModel
-import com.example.quitzone.profilingViewModel.LoginViewModel
+
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.LocalContext
 import com.example.quitzone.preferences.Sharedpreferences
+import com.example.quitzone.viewmodel.profilingViewModel.LoginViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

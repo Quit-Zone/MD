@@ -1,4 +1,4 @@
-package com.example.quitzone.profilingViewModel
+package com.example.quitzone.viewmodel.profilingViewModel
 import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.State

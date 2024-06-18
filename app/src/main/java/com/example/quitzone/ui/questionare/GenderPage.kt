@@ -36,8 +36,7 @@ import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
-import com.example.quitzone.viewmodel.proflingViewModel.GenderViewModel
-import com.example.quitzone.profilingViewModel.GenderViewModel
+import com.example.quitzone.viewmodel.profilingViewModel.GenderViewModel
 
 @Composable
 fun GenderPage(navController: NavController) {
