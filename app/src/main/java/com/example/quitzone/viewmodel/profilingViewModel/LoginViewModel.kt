@@ -1,4 +1,4 @@
-package com.example.quitzone.profilingViewModel
+package com.example.quitzone.viewmodel.profilingViewModel
 
 import android.util.Log
 import androidx.compose.runtime.getValue

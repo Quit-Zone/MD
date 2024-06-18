@@ -35,11 +35,11 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.quitzone.preferences.Sharedpreferences
+import com.example.quitzone.viewmodel.profilingViewModel.AgeViewModel
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
-import com.example.quitzone.viewmodel.proflingViewModel.AgeViewModel
-import com.example.quitzone.profilingViewModel.AgeViewModel
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

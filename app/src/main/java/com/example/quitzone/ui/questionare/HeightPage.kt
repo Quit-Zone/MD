@@ -38,8 +38,7 @@ import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
-import com.example.quitzone.viewmodel.proflingViewModel.HeightViewModel
-import com.example.quitzone.profilingViewModel.HeightViewModel
+import com.example.quitzone.viewmodel.profilingViewModel.HeightViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

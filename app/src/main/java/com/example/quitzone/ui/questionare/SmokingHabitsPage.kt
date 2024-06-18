@@ -22,8 +22,7 @@ import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.ungumuda
-import com.example.quitzone.viewmodel.proflingViewModel.SmokingHabitsViewModel
-import com.example.quitzone.profilingViewModel.SmokingHabitsViewModel
+import com.example.quitzone.viewmodel.profilingViewModel.SmokingHabitsViewModel
 
 @Composable
 fun SmokingHabitsPage(navController: NavController) {
