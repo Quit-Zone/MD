@@ -1,15 +1,22 @@
 package com.example.quitzone
 
+import Home
 import LogIn
 import SignUp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.ui.input.key.Key.Companion.Home
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.quitzone.ui.GetStartedPage
+import com.example.quitzone.ui.mainfeature.BottomNavigationBar
+import com.example.quitzone.ui.mainfeature.Community
+import com.example.quitzone.ui.mainfeature.CommunityViewModel
+import com.example.quitzone.ui.mainfeature.Diary
 import com.example.quitzone.ui.questionare.AgePage
 import com.example.quitzone.ui.questionare.AlcoholConsumptionPage
 import com.example.quitzone.ui.questionare.CigarretesPricePage
@@ -29,7 +36,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             QuitZoneTheme {
                 val navController = rememberNavController()
-                NavHost(navController, startDestination = "login") {
+                NavHost(navController, startDestination = "home") {
                     composable("login") { LogIn(navController) }
                     composable("signup") { SignUp(navController) }
                     //1
@@ -55,6 +62,9 @@ class MainActivity : ComponentActivity() {
                     //11
                     composable("getstartedpage") { GetStartedPage(navController)
                     }
+                    composable("community"){ Community(navController) }
+                    composable("diary"){(Diary(navController))}
+                    composable("home"){(Home(navController))}
                 }
             }
         }

@@ -37,6 +37,7 @@ import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
+import com.example.quitzone.viewmodel.proflingViewModel.WeightViewModel
 import com.example.quitzone.profilingViewModel.WeightViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)

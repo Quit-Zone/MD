@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
+import com.example.quitzone.viewmodel.proflingViewModel.HobbiesViewModel
 import com.example.quitzone.profilingViewModel.HobbiesViewModel
 import kotlinx.coroutines.launch
 
