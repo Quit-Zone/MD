@@ -12,18 +12,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.ungumuda
 import com.example.quitzone.viewmodel.proflingViewModel.SmokingHabitsViewModel
+import com.example.quitzone.profilingViewModel.SmokingHabitsViewModel
 
 @Composable
 fun SmokingHabitsPage(navController: NavController) {
+    val context = LocalContext.current
+    val sharedpreferences = Sharedpreferences(context)
     val smokingHabitsViewModel: SmokingHabitsViewModel = viewModel()
     val selectedHabit by smokingHabitsViewModel.selectedHabit
     val smokingHabits = listOf("Never", "Occasionally", "Frequently", "Daily", "More than once a day")
@@ -96,6 +101,7 @@ fun SmokingHabitsPage(navController: NavController) {
                 ) {
 
                     navController.navigate("alcoholconsumption")
+                    sharedpreferences.setSmokingHabit(smokingHabitsViewModel.selectedHabit.value)
                     println("Next button clicked! Selected smoking habits: ${smokingHabitsViewModel.selectedHabit.value}")
                     println("Next button clicked!")
                 }

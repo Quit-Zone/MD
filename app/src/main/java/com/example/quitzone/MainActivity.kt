@@ -17,7 +17,6 @@ import com.example.quitzone.ui.mainfeature.BottomNavigationBar
 import com.example.quitzone.ui.mainfeature.Community
 import com.example.quitzone.ui.mainfeature.CommunityViewModel
 import com.example.quitzone.ui.mainfeature.Diary
-
 import com.example.quitzone.ui.questionare.AgePage
 import com.example.quitzone.ui.questionare.AlcoholConsumptionPage
 import com.example.quitzone.ui.questionare.CigarretesPricePage
@@ -29,14 +28,6 @@ import com.example.quitzone.ui.questionare.PhysicalActivityPage
 import com.example.quitzone.ui.questionare.SmokingHabitsPage
 import com.example.quitzone.ui.questionare.WeightPage
 import com.example.quitzone.ui.theme.QuitZoneTheme
-import com.example.quitzone.viewmodel.proflingViewModel.AgeViewModel
-import com.example.quitzone.viewmodel.proflingViewModel.AlcoholConsumptionViewModel
-import com.example.quitzone.viewmodel.proflingViewModel.GenderViewModel
-import com.example.quitzone.viewmodel.proflingViewModel.HeightViewModel
-import com.example.quitzone.viewmodel.proflingViewModel.HobbiesViewModel
-import com.example.quitzone.viewmodel.proflingViewModel.PhysicalActivityViewModel
-import com.example.quitzone.viewmodel.proflingViewModel.SmokingHabitsViewModel
-import com.example.quitzone.viewmodel.proflingViewModel.WeightViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,27 +60,7 @@ class MainActivity : ComponentActivity() {
                     //10
                     composable("cigarettepricepage") { CigarretesPricePage(navController) }
                     //11
-                    composable("getstartedpage") {
-                        val ageViewModel: AgeViewModel = viewModel()
-                        val genderViewModel: GenderViewModel = viewModel()
-                        val smokingHabitsViewModel: SmokingHabitsViewModel = viewModel()
-                        val physicalActivityViewModel: PhysicalActivityViewModel = viewModel()
-                        val alcoholConsumptionViewModel: AlcoholConsumptionViewModel = viewModel()
-                        val hobbiesViewModel: HobbiesViewModel = viewModel()
-                        val heightViewModel: HeightViewModel = viewModel()
-                        val weightViewModel: WeightViewModel = viewModel()
-
-                        GetStartedPage(
-                            navController = navController,
-                            ageViewModel = ageViewModel,
-                            genderViewModel = genderViewModel,
-                            smokingHabitsViewModel = smokingHabitsViewModel,
-                            physicalActivityViewModel = physicalActivityViewModel,
-                            alcoholConsumptionViewModel = alcoholConsumptionViewModel,
-                            hobbiesViewModel = hobbiesViewModel,
-                            heightViewModel = heightViewModel,
-                            weightViewModel = weightViewModel
-                        )
+                    composable("getstartedpage") { GetStartedPage(navController)
                     }
                     composable("community"){ Community(navController) }
                     composable("diary"){(Diary(navController))}

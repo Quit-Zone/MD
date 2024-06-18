@@ -18,17 +18,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.viewmodel.proflingViewModel.HobbiesViewModel
+import com.example.quitzone.profilingViewModel.HobbiesViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 fun HobbyPage(navController: NavController) {
+    val context = LocalContext.current
+    val sharedpreferences = Sharedpreferences(context)
     val viewModel: HobbiesViewModel = viewModel()
     val selectedHobbies by viewModel.selectedHobbies.collectAsState()
     val coroutineScope = rememberCoroutineScope()
@@ -115,15 +120,21 @@ fun HobbyPage(navController: NavController) {
                 Spacer(modifier = Modifier.width(10.dp))
                 BoxButton(
                     text = "Next",
-                    backgroundColor = Ungu, // Assuming Putih is a Color variable
+                    backgroundColor = Ungu, // Assuming Ungu is a Color variable
                     textColor = Putih
                 ) {
                     navController.navigate("heightpage")
-                    println("Next button clicked! Selected smoking habits: ${viewModel.selectedHobbies.value}")
-                    println("Next button clicked!")
-                }
+                    println("Next button clicked! Selected hobbies: ${viewModel.selectedHobbies.value}")
 
+                    val hobbiesList = selectedHobbies.toList()
+                    if (hobbiesList.size >= 1) sharedpreferences.setHobby1(hobbiesList[0])
+                    if (hobbiesList.size >= 2) sharedpreferences.setHobby2(hobbiesList[1])
+                    if (hobbiesList.size >= 3) sharedpreferences.setHobby3(hobbiesList[2])
+
+                    println("Hobbies saved: ${hobbiesList.joinToString(", ")}")
+                }
             }
         }
     }
 }
+

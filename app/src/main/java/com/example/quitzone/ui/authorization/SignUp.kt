@@ -36,6 +36,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.quitzone.viewmodel.proflingViewModel.SignUpViewModel
+import com.example.quitzone.profilingViewModel.SignUpViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 
@@ -194,7 +195,7 @@ fun SignUp(navController: NavController) {
             Button(
                 onClick = {
                     viewModel.signUp(username, email, password)
-                    navController.navigate("genderpage")
+                    navController.navigate("login")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -239,5 +240,6 @@ fun SignUp(navController: NavController) {
         }
     }
 }
+
 
 

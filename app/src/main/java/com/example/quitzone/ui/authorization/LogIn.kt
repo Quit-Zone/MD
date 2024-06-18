@@ -20,6 +20,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,15 +37,26 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.quitzone.viewmodel.proflingViewModel.LoginViewModel
+import com.example.quitzone.profilingViewModel.LoginViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.platform.LocalContext
+import com.example.quitzone.preferences.Sharedpreferences
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LogIn(navController: NavController) {
+    val context = LocalContext.current
+    val sharedpreferences = Sharedpreferences(context)
     val viewModel: LoginViewModel = viewModel()
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+
+    // Observe login state changes
+    val loginState by viewModel.loginState.observeAsState("")
 
     Scaffold(
         modifier = Modifier.padding(15.dp),
@@ -62,9 +74,9 @@ fun LogIn(navController: NavController) {
                         )
                     }
                 },
-                navigationIcon = {}, // Hide the navigation icon if not needed
+                navigationIcon = {},
                 actions = {
-                    Spacer(modifier = Modifier.width(0.dp)) // Empty space to balance the center alignment
+                    Spacer(modifier = Modifier.width(0.dp))
                 }
             )
         }
@@ -108,8 +120,8 @@ fun LogIn(navController: NavController) {
                             .background(Color.Transparent),
                         placeholder = { Text("Email") },
                         colors = TextFieldDefaults.textFieldColors(
-                            focusedIndicatorColor = Color.Transparent, // Hide the focused border
-                            unfocusedIndicatorColor = Color.Transparent // Hide the unfocused border
+                            focusedIndicatorColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color.Transparent
                         )
                     )
                 }
@@ -146,8 +158,8 @@ fun LogIn(navController: NavController) {
                         placeholder = { Text("Password") },
                         visualTransformation = PasswordVisualTransformation(),
                         colors = TextFieldDefaults.textFieldColors(
-                            focusedIndicatorColor = Color.Transparent, // Hide the focused border
-                            unfocusedIndicatorColor = Color.Transparent // Hide the unfocused border
+                            focusedIndicatorColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color.Transparent
                         )
                     )
                 }
@@ -157,19 +169,19 @@ fun LogIn(navController: NavController) {
             Button(
                 onClick = {
                     viewModel.login(email, password)
-                    navController.navigate("agepage")
+
                 },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp),
-                colors = ButtonDefaults.buttonColors(Color(0xFF6200EE)) // Use your Ungu color
+                colors = ButtonDefaults.buttonColors(Color(0xFF6200EE))
             ) {
                 Text("Log In")
             }
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
-                text = viewModel.loginState,
+                text = loginState,
                 color = Color.Black,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
@@ -200,6 +212,19 @@ fun LogIn(navController: NavController) {
             )
             Spacer(modifier = Modifier.height(100.dp))
         }
+
+        // Handle navigation on login success
+        if (loginState == "Login Successful") {
+            LaunchedEffect(Unit) {
+                println("token : ${viewModel.userId}")
+                sharedpreferences.saveUserToken(viewModel.userId)
+                println("token tersimpan : ${sharedpreferences.getUserToken().toString()}")
+                navController.navigate("agepage")
+            }
+        }
     }
 }
+
+
+
 

@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -32,14 +33,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
 import com.example.quitzone.viewmodel.proflingViewModel.WeightViewModel
+import com.example.quitzone.profilingViewModel.WeightViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WeightPage(navController: NavController) {
+    val context = LocalContext.current
+    val sharedpreferences = Sharedpreferences(context)
     val viewModel: WeightViewModel = viewModel()
     val weight by viewModel.weight
 
@@ -134,7 +139,9 @@ fun WeightPage(navController: NavController) {
                     textColor = Putih
                 ) {
                     navController.navigate("getstartedpage")
+
                     val weightAsFloat = viewModel.getWeightAsFloat()
+                    sharedpreferences.setWeight(weightAsFloat)
                     println("Next button clicked! Weight: $weightAsFloat kg")
                 }
             }

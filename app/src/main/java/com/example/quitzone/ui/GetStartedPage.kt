@@ -44,29 +44,28 @@ import com.example.quitzone.viewmodel.proflingViewModel.ProfileViewModel
 import com.example.quitzone.viewmodel.proflingViewModel.ProfileViewModelFactory
 import com.example.quitzone.viewmodel.proflingViewModel.SmokingHabitsViewModel
 import com.example.quitzone.viewmodel.proflingViewModel.WeightViewModel
+import com.example.quitzone.preferences.Sharedpreferences
+import com.example.quitzone.retrofit.RetrofitInstance
+import com.example.quitzone.profilingViewModel.ProfileViewModel
+import com.example.quitzone.profilingViewModel.ProfileViewModelFactory
 
 @Composable
-fun GetStartedPage(
-    navController: NavController,
-    ageViewModel: AgeViewModel,
-    genderViewModel: GenderViewModel,
-    smokingHabitsViewModel: SmokingHabitsViewModel,
-    physicalActivityViewModel: PhysicalActivityViewModel,
-    alcoholConsumptionViewModel: AlcoholConsumptionViewModel,
-    hobbiesViewModel: HobbiesViewModel,
-    heightViewModel: HeightViewModel,
-    weightViewModel: WeightViewModel
-) {
-    val viewModel: ProfileViewModel = viewModel(
-        factory = ProfileViewModelFactory(
-            ageViewModel, genderViewModel, smokingHabitsViewModel,
-            physicalActivityViewModel, alcoholConsumptionViewModel,
-            hobbiesViewModel, heightViewModel, weightViewModel
-        )
-    )
-
+fun GetStartedPage(navController: NavController) {
     val context = LocalContext.current
-    val postResult by viewModel.postResult.collectAsState(initial = null)
+    val sharedpreferences = Sharedpreferences(context)
+
+    // Provide ApiService instance
+    val apiService = RetrofitInstance.api
+
+    // Create ViewModel using the factory
+    val viewModelFactory = ProfileViewModelFactory(
+        // Pass dependencies here
+        apiService = apiService,
+        sharedpreferences = sharedpreferences
+    )
+    val profileViewModel: ProfileViewModel = viewModel(
+        factory = viewModelFactory
+    )
 
     Scaffold(modifier = Modifier.padding(15.dp)) { innerPadding ->
         Column(
@@ -96,7 +95,7 @@ fun GetStartedPage(
                         "your profile with us. Now this is the \n" +
                         "fun part, let’s explore the app.",
                 style = TextStyle(
-                    color = desctext,
+                    color = Color.Gray,
                     fontSize = 14.sp,
                     textAlign = TextAlign.Center
                 )
@@ -106,9 +105,12 @@ fun GetStartedPage(
             Box(
                 modifier = Modifier
                     .size(width = 250.dp, height = 49.dp)
-                    .background(Ungu, shape = RoundedCornerShape(10.dp))
+                    .background(Color.Green, shape = RoundedCornerShape(10.dp))
                     .clickable {
-                        viewModel.postProfile()
+                        // Post the profile using ProfileViewModel
+                        val Token = sharedpreferences.getUserToken()
+                        println("token ${Token}")
+                        profileViewModel.postProfile(Token.toString())
                     },
                 contentAlignment = Alignment.Center
             ) {
@@ -119,17 +121,27 @@ fun GetStartedPage(
                 )
             }
         }
+    }
 
-        // Observe postResult and show a toast message on success or failure
-        postResult?.let { response ->
-            LaunchedEffect(response) {
-                if (response.isSuccessful) {
-                    Toast.makeText(context, "Profile saved successfully", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, "Failed to save profile: ${response.message()}", Toast.LENGTH_SHORT).show()
-                    println("Failed to save profile: ${response.message()}")
-                }
+    // Observe the result of the profile post
+    val postResult by profileViewModel.profilePostResult.collectAsState()
+
+    LaunchedEffect(postResult) {
+        postResult?.let {
+            it.onSuccess {
+                // Show success toast
+                Toast.makeText(context, "Profile successfully added!", Toast.LENGTH_LONG).show()
+                // Handle success, e.g., navigate to another screen
+                navController.navigate("nextScreenRoute")
+            }.onFailure { exception ->
+                // Handle error, e.g., show a toast message
+                Toast.makeText(context, "Error: ${exception.message}", Toast.LENGTH_LONG).show()
+                println("Error: ${exception.message}")
             }
         }
     }
 }
+
+
+
+

@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -33,14 +34,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
 import com.example.quitzone.viewmodel.proflingViewModel.HeightViewModel
+import com.example.quitzone.profilingViewModel.HeightViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HeightPage(navController: NavController) {
+    val context = LocalContext.current
+    val sharedpreferences = Sharedpreferences(context)
     val viewModel: HeightViewModel = viewModel()
     val height by viewModel.height
 
@@ -136,6 +141,7 @@ fun HeightPage(navController: NavController) {
                 ) {
                     navController.navigate("weightpage")
                     val heightAsFloat = viewModel.getHeightAsFloat()
+                    sharedpreferences.setHeight(heightAsFloat)
                     println("Next button clicked! Height: $heightAsFloat cm")
                 }
             }

@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -33,14 +34,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
 import com.example.quitzone.viewmodel.proflingViewModel.AgeViewModel
+import com.example.quitzone.profilingViewModel.AgeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AgePage(navController: NavController) {
+    val context = LocalContext.current
+    val sharedpreferences = Sharedpreferences(context)
     val ageViewModel: AgeViewModel = viewModel()
     val ageState = ageViewModel.age.collectAsState()
 
@@ -159,6 +164,7 @@ fun AgePage(navController: NavController) {
                 ) {
                     // Handle the button click
                     ageViewModel.age
+                    sharedpreferences.setAge(ageViewModel.age.value)
                     navController.navigate("genderpage")
                     println("Next button clicked!")
                     println("Next button clicked! Selected age: ${ageViewModel.age.value}")
