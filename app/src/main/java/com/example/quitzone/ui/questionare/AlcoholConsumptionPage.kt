@@ -1,8 +1,5 @@
 package com.example.quitzone.ui.questionare
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,19 +12,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.ungumuda
-import com.example.quitzone.viewmodel.AlcoholConsumptionViewModel
+import com.example.quitzone.profilingViewModel.AlcoholConsumptionViewModel
 
 @Composable
 fun AlcoholConsumptionPage(navController: NavController) {
+    val context = LocalContext.current
+    val sharedpreferences = Sharedpreferences(context)
     val alcoholConsumptionViewModel: AlcoholConsumptionViewModel = viewModel()
     val selectedHabit by alcoholConsumptionViewModel.selectedHabit
     val alcoholConsumptionOptions = listOf("Never", "Occasionally", "Frequently", "Daily", "More than once a day")
@@ -99,6 +99,7 @@ fun AlcoholConsumptionPage(navController: NavController) {
                 ) {
 
                     navController.navigate("physicalactivity")
+                    sharedpreferences.setAlcoholConsumption(alcoholConsumptionViewModel.selectedHabit.value)
                     println("Next button clicked! Selected smoking habits: ${alcoholConsumptionViewModel.selectedHabit.value}")
                     println("Next button clicked!")
                 }

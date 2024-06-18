@@ -1,7 +1,6 @@
-package com.example.quitzone.viewmodel
+package com.example.quitzone.profilingViewModel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 

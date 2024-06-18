@@ -1,8 +1,5 @@
 package com.example.quitzone.ui.questionare
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,19 +12,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.ungumuda
-import com.example.quitzone.viewmodel.PhysicalActivityViewModel
+import com.example.quitzone.profilingViewModel.PhysicalActivityViewModel
 
 @Composable
 fun PhysicalActivityPage(navController: NavController) {
+    val context = LocalContext.current
+    val sharedpreferences = Sharedpreferences(context)
     val physicalActivityViewModel: PhysicalActivityViewModel = viewModel()
     val selectedActivity by physicalActivityViewModel.selectedActivity
     val physicalActivityOptions = listOf(
@@ -105,6 +106,7 @@ fun PhysicalActivityPage(navController: NavController) {
                     textColor = Putih
                 ) {
                     navController.navigate("hobbypage")
+                    sharedpreferences.setPhysicalActivity(physicalActivityViewModel.selectedActivity.value)
                     println("Next button clicked! Selected smoking habits: ${physicalActivityViewModel.selectedActivity.value}")
                     println("Next button clicked!")
                 }
