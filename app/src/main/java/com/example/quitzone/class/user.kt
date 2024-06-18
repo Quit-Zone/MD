@@ -1,9 +1,8 @@
 package com.example.quitzone.`class`
 
-class User {
-    data class User(
-        val id: Int,
-        val name: String,
-        val email: String
-    )
-}
+
+data class User(
+        val id: String,
+        val email: String,
+        val username: String
+)

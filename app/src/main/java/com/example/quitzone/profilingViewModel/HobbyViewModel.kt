@@ -1,4 +1,4 @@
-package com.example.quitzone.viewmodel
+package com.example.quitzone.profilingViewModel
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

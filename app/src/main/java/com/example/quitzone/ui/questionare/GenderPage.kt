@@ -18,30 +18,30 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.quitzone.R
+import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
-import com.example.quitzone.viewmodel.GenderViewModel
+import com.example.quitzone.profilingViewModel.GenderViewModel
 
 @Composable
 fun GenderPage(navController: NavController) {
+    val context = LocalContext.current
+    val sharedpreferences = Sharedpreferences(context)
     val genderViewModel: GenderViewModel = viewModel()
 
     Scaffold(modifier = Modifier.padding(15.dp)) { innerPadding ->
@@ -60,19 +60,19 @@ fun GenderPage(navController: NavController) {
                 LazyRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     item {
                         GenderOption(
-                            gender = "male",
-                            isSelected = genderViewModel.selectedGender == "male",
+                            gender = "Male",
+                            isSelected = genderViewModel.selectedGender == "Male",
                             onSelect = {
-                                genderViewModel.selectGender("male")
+                                genderViewModel.selectGender("Male")
                             }
                         )
                     }
                     item {
                         GenderOption(
-                            gender = "female",
-                            isSelected = genderViewModel.selectedGender == "female",
+                            gender = "Female",
+                            isSelected = genderViewModel.selectedGender == "Female",
                             onSelect = {
-                                genderViewModel.selectGender("female")
+                                genderViewModel.selectGender("Female")
                             }
                         )
                     }
@@ -99,6 +99,7 @@ fun GenderPage(navController: NavController) {
                     textColor = Putih
                 ) {
                     navController.navigate("smokinghabits")
+                    sharedpreferences.setGender(genderViewModel.selectedGender.toString())
                     println("Next button clicked! Selected gender: ${genderViewModel.selectedGender}")
                 }
             }
@@ -109,7 +110,7 @@ fun GenderPage(navController: NavController) {
 @Composable
 fun GenderOption(gender: String, isSelected: Boolean, onSelect: () -> Unit) {
     val backgroundColor = if (isSelected) Ungu else Putih
-    val imageResource = if (gender == "male") R.drawable.man else R.drawable.women
+    val imageResource = if (gender == "Male") R.drawable.man else R.drawable.women
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         BoxGender(
@@ -118,7 +119,7 @@ fun GenderOption(gender: String, isSelected: Boolean, onSelect: () -> Unit) {
             onClick = onSelect
         )
         Spacer(modifier = Modifier.height(3.dp))
-        QuestionText(name = if (gender == "male") "Man" else "Woman")
+        QuestionText(name = if (gender == "Male") "Man" else "Woman")
     }
 }
 
