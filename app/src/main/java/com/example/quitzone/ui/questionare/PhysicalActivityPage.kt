@@ -1,8 +1,5 @@
 package com.example.quitzone.ui.questionare
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -24,7 +21,7 @@ import androidx.navigation.NavController
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.ungumuda
-import com.example.quitzone.viewmodel.PhysicalActivityViewModel
+import com.example.quitzone.viewmodel.proflingViewModel.PhysicalActivityViewModel
 
 @Composable
 fun PhysicalActivityPage(navController: NavController) {

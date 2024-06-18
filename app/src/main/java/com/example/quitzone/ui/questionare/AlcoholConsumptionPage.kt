@@ -1,8 +1,5 @@
 package com.example.quitzone.ui.questionare
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -16,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -24,7 +20,7 @@ import androidx.navigation.NavController
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.ungumuda
-import com.example.quitzone.viewmodel.AlcoholConsumptionViewModel
+import com.example.quitzone.viewmodel.proflingViewModel.AlcoholConsumptionViewModel
 
 @Composable
 fun AlcoholConsumptionPage(navController: NavController) {

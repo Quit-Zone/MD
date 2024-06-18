@@ -1,14 +1,12 @@
-package com.example.quitzone.viewmodel
+package com.example.quitzone.viewmodel.proflingViewModel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.quitzone.retrofit.LoginRequest
 import com.example.quitzone.retrofit.LoginResponse
 import com.example.quitzone.retrofit.RetrofitInstance
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

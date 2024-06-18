@@ -1,6 +1,5 @@
 package com.example.quitzone.ui
 
-import android.media.Image
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -33,20 +32,18 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.quitzone.R
-import com.example.quitzone.ui.questionare.BoxButton
-import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
-import com.example.quitzone.viewmodel.AgeViewModel
-import com.example.quitzone.viewmodel.AlcoholConsumptionViewModel
-import com.example.quitzone.viewmodel.GenderViewModel
-import com.example.quitzone.viewmodel.HeightViewModel
-import com.example.quitzone.viewmodel.HobbiesViewModel
-import com.example.quitzone.viewmodel.PhysicalActivityViewModel
-import com.example.quitzone.viewmodel.ProfileViewModel
-import com.example.quitzone.viewmodel.ProfileViewModelFactory
-import com.example.quitzone.viewmodel.SmokingHabitsViewModel
-import com.example.quitzone.viewmodel.WeightViewModel
+import com.example.quitzone.viewmodel.proflingViewModel.AgeViewModel
+import com.example.quitzone.viewmodel.proflingViewModel.AlcoholConsumptionViewModel
+import com.example.quitzone.viewmodel.proflingViewModel.GenderViewModel
+import com.example.quitzone.viewmodel.proflingViewModel.HeightViewModel
+import com.example.quitzone.viewmodel.proflingViewModel.HobbiesViewModel
+import com.example.quitzone.viewmodel.proflingViewModel.PhysicalActivityViewModel
+import com.example.quitzone.viewmodel.proflingViewModel.ProfileViewModel
+import com.example.quitzone.viewmodel.proflingViewModel.ProfileViewModelFactory
+import com.example.quitzone.viewmodel.proflingViewModel.SmokingHabitsViewModel
+import com.example.quitzone.viewmodel.proflingViewModel.WeightViewModel
 
 @Composable
 fun GetStartedPage(

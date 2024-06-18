@@ -1,4 +1,4 @@
-package com.example.quitzone.viewmodel
+package com.example.quitzone.viewmodel.proflingViewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

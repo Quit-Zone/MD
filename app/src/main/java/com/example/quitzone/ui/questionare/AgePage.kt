@@ -22,8 +22,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,7 +36,7 @@ import androidx.navigation.NavController
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
-import com.example.quitzone.viewmodel.AgeViewModel
+import com.example.quitzone.viewmodel.proflingViewModel.AgeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
