@@ -1,6 +1,8 @@
 package com.example.quitzone.ui.mainfeature
 
+import android.annotation.SuppressLint
 import android.media.audiofx.AudioEffect.Descriptor
+import android.text.style.BackgroundColorSpan
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -13,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -28,6 +31,7 @@ import com.example.quitzone.ui.theme.ungulagilagi
 
 
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Community(navController: NavController, viewModel: CommunityViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
@@ -37,87 +41,80 @@ fun Community(navController: NavController, viewModel: CommunityViewModel = andr
     val filteredItems by viewModel.filteredItems.observeAsState(emptyList())
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        Text(
-                            text = "Community",
-                            style = TextStyle(
-                                color = Color.White,
-                                fontSize = 23.sp,
-                                fontWeight = FontWeight.SemiBold
-                            )
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = ungulagi // Use your `ungulagi` color here
-                )
-            )
-        },
         bottomBar = {
             BottomAppBar(
-                modifier = Modifier.padding(0.dp),
+                modifier = Modifier.padding(0.dp).shadow(15.dp),
                 containerColor = Color.White,
                 contentColor = Color.Black
             ) {
                 BottomNavigationBar(navController)
             }
-        }
-    ) { innerPadding ->
-        Surface(
-            modifier = Modifier
-                .padding(innerPadding)
-                .background(ungulagi), // Set the same background color as Scaffold if needed
-            shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp), // Set the border radius here
-            color = Color.White, // Set the desired background color of the Surface
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(start = 30.dp, top = 30.dp, end = 30.dp)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Top,
-            ) {
+        },
+        containerColor = ungulagi
+    ) {
+        Column {
+            Box(modifier = Modifier.background(ungulagi).fillMaxWidth().padding(top = 50.dp , bottom = 20.dp), contentAlignment = Alignment.Center) {
                 Text(
-                    text = "Recommended Community",
+                    text = "Community",
                     style = TextStyle(
-                        color = Color.Black,
-                        fontSize = 18.sp,
+                        color = Color.White,
+                        fontSize = 23.sp,
                         fontWeight = FontWeight.SemiBold
                     )
                 )
-                Spacer(modifier = Modifier.height(16.dp))
-                LazyRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(0.dp)
+            }
+            Column(
+                modifier = Modifier
+                    .padding().height(750.dp)
+                    .background(Color.White, RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)), // Set the same background color as Scaffold if needed
+            ) {
+                Column(
+                    modifier = Modifier
+                        .padding(start = 30.dp, top = 30.dp, end = 30.dp)
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Top,
                 ) {
-                    items(communityItems.size) { index ->
-                        CommunityTiles(
-                            icon = communityItems[index].icon,
-                            title = communityItems[index].title
+                    Text(
+                        text = "Recommended Community",
+                        style = TextStyle(
+                            color = Color.Black,
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.SemiBold
                         )
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    LazyRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(0.dp)
+                    ) {
+                        items(communityItems.size) { index ->
+                            CommunityTiles(
+                                icon = communityItems[index].icon,
+                                title = communityItems[index].title
+                            )
+                        }
                     }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                CommunityButtonRow(
-                    communityItems = communityCategories,
-                    selectedItem = selectedItem,
-                    onItemSelected = { viewModel.selectCategory(it) }
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                LazyColumn(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(15.dp)
-                ) {
-                    items(filteredItems.size) { index ->
-                        CommunityCard(
-                            item = filteredItems[index]
-                        )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    CommunityButtonRow(
+                        communityItems = communityCategories,
+                        selectedItem = selectedItem,
+                        onItemSelected = { viewModel.selectCategory(it) }
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    LazyColumn(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(15.dp)
+                    ) {
+                        items(filteredItems.size) { index ->
+                            CommunityCard(
+                                item = filteredItems[index]
+                            )
+                        }
                     }
                 }
             }
         }
+
     }
 }
 

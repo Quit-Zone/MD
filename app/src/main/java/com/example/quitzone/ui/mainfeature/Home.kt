@@ -22,20 +22,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineHeightStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.quitzone.ui.mainfeature.BottomNavigationBar
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.R
+import com.example.quitzone.ui.theme.background
 import com.example.quitzone.ui.theme.ungulagi
+import java.text.NumberFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
+import java.util.Locale
 
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -44,6 +50,9 @@ import java.util.Calendar
 fun Home(navController: NavController) {
     var username by remember { mutableStateOf("") }
     username = "Kak Biyyu"
+
+    var walletAmount by remember { mutableStateOf(0) }
+    walletAmount = 300000
 
     // Determine if it's day or night
     val calendar = Calendar.getInstance()
@@ -56,19 +65,15 @@ fun Home(navController: NavController) {
     val formattedDate = currentDate.format(dateFormatter).uppercase()
 
     Scaffold(
+        modifier = Modifier.background(Color.White).padding(top = 10.dp),
+        containerColor = Color.White,
         topBar = {
             TopAppBar(
                 title = {
-                    Column (
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.Start){
-
-                    }
                     Row(
-                        modifier = Modifier.fillMaxWidth().padding(15.dp),
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
-
                     ) {
                         Column(horizontalAlignment = Alignment.Start) {
                             Row(verticalAlignment = Alignment.CenterVertically){
@@ -118,15 +123,108 @@ fun Home(navController: NavController) {
         },
         bottomBar = {
             BottomAppBar(
-                modifier = Modifier.padding(0.dp),
+                modifier = Modifier.padding(0.dp).shadow(15.dp),
                 containerColor = Color.White,
                 contentColor = Color.Black
             ) {
                 BottomNavigationBar(navController)
             }
         }
-    ) {
-        // Main content of the Home screen
+    ) { innerPadding ->
+        Column(modifier = Modifier.padding(innerPadding)) {
+            Column(modifier = Modifier.padding(top = 15.dp, start = 30.dp, end = 30.dp)){
+                Box(modifier = Modifier.background(color = Color(0x0F1E1E1E), shape = RoundedCornerShape(20.dp)).fillMaxWidth()){
+                    Column(modifier = Modifier.padding(vertical = 22.dp, horizontal = 32.dp)){
+                        Text(
+                            text = "Welcome To QuitZone!",
+                            style = TextStyle(
+                                color = Color.Black,
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "Take your time to explore many new things in this app! you can see the community tabs to see the community you’re interested with! we also have some cool features waiting to find out!",
+                            style = TextStyle(
+                                fontSize = 13.sp,
+                                lineHeight = 19.5.sp,
+
+                                fontWeight = FontWeight(400),
+                                color = Color.Black,
+
+                                textAlign = TextAlign.Justify,
+                            )
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(17.dp))
+                Text(
+                    text = "Wallet",
+                    style = TextStyle(
+                        fontSize = 18.sp,
+                        lineHeight = 18.sp,
+                        fontWeight = FontWeight(600),
+                        color = Color(0xFF000000),
+                        )
+                    )
+                Spacer(modifier = Modifier.height(17.dp))
+                Box(modifier = Modifier.background(color = Color(0xFF7065E3), shape = RoundedCornerShape(20.dp)).fillMaxWidth()){
+                    Row(modifier = Modifier.padding(vertical = 40.dp, horizontal = 25.dp), verticalAlignment = Alignment.CenterVertically){
+                        Icon(
+                            painter = painterResource(
+                                id = R.drawable.ic_wallet
+                            ),
+                            contentDescription = "wallet",
+                            tint = Color.White,
+                            modifier = Modifier.size(82.dp)
+                        )
+                        Spacer(modifier = Modifier.width(15.dp))
+                        Column() {
+                            Text(
+                                text = "IDR ",
+                                style = TextStyle(
+                                    fontSize = 25.sp,
+                                    lineHeight = 35.sp,
+                                    fontWeight = FontWeight(500),
+                                    color = Color(0xFFFFFFFF),
+                                    textAlign = TextAlign.Justify,
+                                    letterSpacing = 0.75.sp,
+                                )
+                            )
+                            Text(
+                                text = formatCurrency(walletAmount),
+                                style = TextStyle(
+                                    fontSize = 30.sp,
+                                    lineHeight = 42.sp,
+                                    fontWeight = FontWeight(600),
+                                    color = Color(0xFFFFFFFF),
+                                    textAlign = TextAlign.Justify,
+                                    letterSpacing = 0.9.sp,
+                                )
+                            )
+                        }
+                    }
+                    Row(modifier = Modifier.padding(vertical = 20.dp, horizontal = 25.dp).align(Alignment.TopEnd), horizontalArrangement = Arrangement.End){
+                        Column(verticalArrangement = Arrangement.Top, horizontalAlignment = Alignment.End){
+                            Text(
+                                text = "Your Savings",
+                                style = TextStyle(
+                                    fontSize = 17.sp,
+                                    fontWeight = FontWeight(500),
+                                    color = Color(0xFFFFFFFF),
+                                    textAlign = TextAlign.End
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
+fun formatCurrency(amount: Int): String {
+    val formatter = NumberFormat.getInstance(Locale("id", "ID"))
+    return formatter.format(amount)
+}
