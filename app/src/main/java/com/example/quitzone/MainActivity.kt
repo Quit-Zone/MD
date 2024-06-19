@@ -3,6 +3,7 @@ package com.example.quitzone
 import Home
 import LogIn
 import SignUp
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -30,13 +31,14 @@ import com.example.quitzone.ui.questionare.WeightPage
 import com.example.quitzone.ui.theme.QuitZoneTheme
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             QuitZoneTheme {
                 val navController = rememberNavController()
-                NavHost(navController, startDestination = "home") {
+                NavHost(navController, startDestination = "login") {
                     composable("login") { LogIn(navController) }
                     composable("signup") { SignUp(navController) }
                     //1

@@ -20,6 +20,7 @@ class Sharedpreferences(context: Context) {
     private val hobby_3 = "Hobby_3"
     private val height = "height"
     private val weight = "weight"
+    private val prediction = "prediction"
     private val sharedPreference: SharedPreferences
 
     init {
@@ -172,6 +173,11 @@ class Sharedpreferences(context: Context) {
         return sharedPreference.getFloat(this.weight, 0f)
     }
 
+    fun setPredictionValue(prediction: String) {
+        sharedPreference.edit().putString(this.prediction, prediction).apply()
+    }
 
-
+    fun getPredictionValue() : String? {
+        return sharedPreference.getString(this.prediction, "")
+    }
 }

@@ -34,6 +34,8 @@ import androidx.navigation.NavController
 import com.example.quitzone.R
 import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.retrofit.RetrofitInstance
+import com.example.quitzone.viewmodel.mainfeatureViewModel.PredictionViewModel
+import com.example.quitzone.viewmodel.mainfeatureViewModel.PredictionViewModelFactory
 import com.example.quitzone.viewmodel.profilingViewModel.ProfileViewModel
 import com.example.quitzone.viewmodel.profilingViewModel.ProfileViewModelFactory
 
@@ -41,17 +43,13 @@ import com.example.quitzone.viewmodel.profilingViewModel.ProfileViewModelFactory
 fun GetStartedPage(navController: NavController) {
     val context = LocalContext.current
     val sharedpreferences = Sharedpreferences(context)
-
+//
     // Provide ApiService instance
     val apiService = RetrofitInstance.api
-
-    // Create ViewModel using the factory
-    val viewModelFactory = ProfileViewModelFactory(
-        // Pass dependencies here
-        apiService = apiService,
-        sharedpreferences = sharedpreferences
-    )
-    val profileViewModel: ProfileViewModel = viewModel(
+//
+//    // Create ViewModel using the factory
+    val viewModelFactory = PredictionViewModelFactory()
+    val predictionViewModel: PredictionViewModel = viewModel(
         factory = viewModelFactory
     )
 
@@ -97,8 +95,9 @@ fun GetStartedPage(navController: NavController) {
                     .clickable {
                         // Post the profile using ProfileViewModel
                         val Token = sharedpreferences.getUserToken()
-                        println("token ${Token}")
-                        profileViewModel.postProfile(Token.toString())
+                        println("id predict : ${sharedpreferences.getUserId()}")
+                        println("token predict:  ${Token}")
+                        predictionViewModel.postPredict(Token.toString())
                     },
                 contentAlignment = Alignment.Center
             ) {
@@ -112,22 +111,22 @@ fun GetStartedPage(navController: NavController) {
     }
 
     // Observe the result of the profile post
-    val postResult by profileViewModel.profilePostResult.collectAsState()
-
-    LaunchedEffect(postResult) {
-        postResult?.let {
-            it.onSuccess {
-                // Show success toast
-                Toast.makeText(context, "Profile successfully added!", Toast.LENGTH_LONG).show()
-                // Handle success, e.g., navigate to another screen
-                navController.navigate("nextScreenRoute")
-            }.onFailure { exception ->
-                // Handle error, e.g., show a toast message
-                Toast.makeText(context, "Error: ${exception.message}", Toast.LENGTH_LONG).show()
-                println("Error: ${exception.message}")
-            }
-        }
-    }
+//    val postResult by profileViewModel.profilePostResult.collectAsState()
+//
+//    LaunchedEffect(postResult) {
+//        postResult?.let {
+//            it.onSuccess {
+//                // Show success toast
+//                Toast.makeText(context, "Profile successfully added!", Toast.LENGTH_LONG).show()
+//                // Handle success, e.g., navigate to another screen
+//                navController.navigate("nextScreenRoute")
+//            }.onFailure { exception ->
+//                // Handle error, e.g., show a toast message
+//                Toast.makeText(context, "Error: ${exception.message}", Toast.LENGTH_LONG).show()
+//                println("Error: ${exception.message}")
+//            }
+//        }
+//    }
 }
 
 

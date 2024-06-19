@@ -1,4 +1,5 @@
 package com.example.quitzone.ui.questionare
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +20,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,9 +37,12 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.quitzone.preferences.Sharedpreferences
+import com.example.quitzone.retrofit.RetrofitInstance
 import com.example.quitzone.ui.theme.Putih
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.desctext
+import com.example.quitzone.viewmodel.profilingViewModel.ProfileViewModel
+import com.example.quitzone.viewmodel.profilingViewModel.ProfileViewModelFactory
 import com.example.quitzone.viewmodel.profilingViewModel.WeightViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,6 +50,20 @@ import com.example.quitzone.viewmodel.profilingViewModel.WeightViewModel
 fun WeightPage(navController: NavController) {
     val context = LocalContext.current
     val sharedpreferences = Sharedpreferences(context)
+
+    // Provide ApiService instance
+    val apiService = RetrofitInstance.api
+
+    // Create ViewModel using the factory
+    val viewModelFactory = ProfileViewModelFactory(
+        // Pass dependencies here
+        apiService = apiService,
+        sharedpreferences = sharedpreferences
+    )
+    val profileViewModel: ProfileViewModel = viewModel(
+        factory = viewModelFactory
+    )
+
     val viewModel: WeightViewModel = viewModel()
     val weight by viewModel.weight
 
@@ -137,12 +157,33 @@ fun WeightPage(navController: NavController) {
                     backgroundColor = Ungu, // Assuming Ungu is a Color variable
                     textColor = Putih
                 ) {
-                    navController.navigate("getstartedpage")
+
 
                     val weightAsFloat = viewModel.getWeightAsFloat()
                     sharedpreferences.setWeight(weightAsFloat)
+                    val Token = sharedpreferences.getUserToken()
+                    println("id profile : ${sharedpreferences.getUserId()}")
+                    println("token profile : ${Token}")
+                    profileViewModel.postProfile(Token.toString())
+//                    navController.navigate("getstartedpage")
                     println("Next button clicked! Weight: $weightAsFloat kg")
                 }
+            }
+        }
+    }
+    val postResult by profileViewModel.profilePostResult.collectAsState()
+
+    LaunchedEffect(postResult) {
+        postResult?.let {
+            it.onSuccess {
+                // Show success toast
+                Toast.makeText(context, "Profile successfully added!", Toast.LENGTH_LONG).show()
+                // Handle success, e.g., navigate to another screen
+                navController.navigate("getstartedpage")
+            }.onFailure { exception ->
+                // Handle error, e.g., show a toast message
+                Toast.makeText(context, "Error: ${exception.message}", Toast.LENGTH_LONG).show()
+                println("Error: ${exception.message}")
             }
         }
     }
