@@ -3,6 +3,7 @@ package com.example.quitzone
 import Home
 import LogIn
 import SignUp
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,8 +29,10 @@ import com.example.quitzone.ui.questionare.PhysicalActivityPage
 import com.example.quitzone.ui.questionare.SmokingHabitsPage
 import com.example.quitzone.ui.questionare.WeightPage
 import com.example.quitzone.ui.theme.QuitZoneTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
