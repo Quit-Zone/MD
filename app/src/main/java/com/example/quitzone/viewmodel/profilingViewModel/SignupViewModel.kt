@@ -12,7 +12,7 @@ import retrofit2.Response
 
 class SignUpViewModel : ViewModel() {
     var signUpState by mutableStateOf("")
-    var userId by mutableStateOf(0)
+    var userId by mutableStateOf("")
     var userName by mutableStateOf("")
     var userEmail by mutableStateOf("")
 

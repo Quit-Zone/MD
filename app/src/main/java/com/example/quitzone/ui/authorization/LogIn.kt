@@ -42,6 +42,7 @@ import androidx.navigation.NavController
 
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.ViewModel
 import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.viewmodel.profilingViewModel.LoginViewModel
 
@@ -218,6 +219,7 @@ fun LogIn(navController: NavController) {
             LaunchedEffect(Unit) {
                 println("token : ${viewModel.userId}")
                 sharedpreferences.saveUserToken(viewModel.userId)
+                sharedpreferences.saveUserId(viewModel.IDUSER)
                 println("token tersimpan : ${sharedpreferences.getUserToken().toString()}")
                 navController.navigate("agepage")
             }

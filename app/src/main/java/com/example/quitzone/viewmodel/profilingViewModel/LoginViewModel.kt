@@ -19,6 +19,7 @@ class LoginViewModel : ViewModel() {
     val loginState: LiveData<String> get() = _loginState
 
     var userId by mutableStateOf("")
+    var IDUSER by mutableStateOf("")
     var userName by mutableStateOf("")
     var userEmail by mutableStateOf("")
 
@@ -30,6 +31,7 @@ class LoginViewModel : ViewModel() {
                     val loginResponse = response.body()
                     if (loginResponse != null && loginResponse.data != null) {
                         userId = loginResponse.token
+                        IDUSER = loginResponse.data.id
                         userName = loginResponse.data.username
                         userEmail = loginResponse.data.email
                         _loginState.value = "Login Successful"
