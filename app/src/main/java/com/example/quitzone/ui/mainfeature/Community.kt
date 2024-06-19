@@ -17,28 +17,36 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.quitzone.R
+import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.ungulagi
 import com.example.quitzone.ui.theme.ungulagilagi
-
+import com.example.quitzone.viewmodel.mainfeatureViewModel.PredictionViewModel
+import com.example.quitzone.viewmodel.mainfeatureViewModel.PredictionViewModelFactory
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Community(navController: NavController, viewModel: CommunityViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
+    val context = LocalContext.current
+    val sharedpreferences = Sharedpreferences(context)
+
     val communityItems by viewModel.communityItems.observeAsState(emptyList())
     val communityCategories by viewModel.communityCategories.observeAsState(emptyList())
     val selectedItem by viewModel.selectedItem.observeAsState("All")
     val filteredItems by viewModel.filteredItems.observeAsState(emptyList())
+
 
     Scaffold(
         bottomBar = {
@@ -87,10 +95,11 @@ fun Community(navController: NavController, viewModel: CommunityViewModel = andr
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(0.dp)
                     ) {
-                        items(communityItems.size) { index ->
+                        val recommendedItems = communityItems.filter { it.category == sharedpreferences.getPredictionValue()}
+                        items(recommendedItems.size) { index ->
                             CommunityTiles(
-                                icon = communityItems[index].icon,
-                                title = communityItems[index].title
+                                icon = recommendedItems[index].icon,
+                                title = recommendedItems[index].title
                             )
                         }
                     }

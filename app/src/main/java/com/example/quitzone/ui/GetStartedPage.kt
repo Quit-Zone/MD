@@ -48,7 +48,7 @@ fun GetStartedPage(navController: NavController) {
     val apiService = RetrofitInstance.api
 //
 //    // Create ViewModel using the factory
-    val viewModelFactory = PredictionViewModelFactory()
+    val viewModelFactory = PredictionViewModelFactory(sharedpreferences)
     val predictionViewModel: PredictionViewModel = viewModel(
         factory = viewModelFactory
     )
@@ -98,6 +98,7 @@ fun GetStartedPage(navController: NavController) {
                         println("id predict : ${sharedpreferences.getUserId()}")
                         println("token predict:  ${Token}")
                         predictionViewModel.postPredict(Token.toString())
+                        navController.navigate("home")
                     },
                 contentAlignment = Alignment.Center
             ) {

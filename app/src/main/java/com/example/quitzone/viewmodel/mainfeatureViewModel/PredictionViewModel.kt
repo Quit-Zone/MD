@@ -13,9 +13,11 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 
-class PredictionViewModel : ViewModel() {
-    private lateinit var sharedpreferences: Sharedpreferences
+class PredictionViewModel(private val sharedpreferences: Sharedpreferences) : ViewModel() {
     private val api = RetrofitInstance.api
+
+    private val _predictionCategory = MutableLiveData<String>()
+    val predictionCategory: LiveData<String> = _predictionCategory
 
     fun postPredict(token: String) {
         viewModelScope.launch {
@@ -38,9 +40,6 @@ class PredictionViewModel : ViewModel() {
         }
     }
 
-
-
-
     fun getPrediction(token: String) {
         viewModelScope.launch {
             try {
@@ -62,15 +61,26 @@ class PredictionViewModel : ViewModel() {
                 Log.e("PredictionViewModel", "Prediction failed: ${e.message}")
                 println("Prediction failed: ${e.message}")
             }
+
+            if (sharedpreferences.getPredictionValue() == "Physically Active"){
+                sharedpreferences.setPredictionValue("Physically")
+            }else if (sharedpreferences.getPredictionValue() == "Creatively Engaged") {
+                sharedpreferences.setPredictionValue("Creatively")
+            }else if (sharedpreferences.getPredictionValue() == "Relaxed and Leisurely") {
+                sharedpreferences.setPredictionValue("Relaxed")
+            }else {
+                sharedpreferences.setPredictionValue("Socially")
+            }
         }
     }
 }
 
 
-class PredictionViewModelFactory : ViewModelProvider.Factory {
+
+class PredictionViewModelFactory(private val sharedpreferences: Sharedpreferences) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
         if (modelClass.isAssignableFrom(PredictionViewModel::class.java)) {
-            return PredictionViewModel() as T
+            return PredictionViewModel(sharedpreferences) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

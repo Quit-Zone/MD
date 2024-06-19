@@ -7,18 +7,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.quitzone.R
+import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.ui.theme.ungulagi
 import com.example.quitzone.ui.theme.ungulagilagi
+import com.example.quitzone.viewmodel.mainfeatureViewModel.PredictionViewModel
+import com.example.quitzone.viewmodel.mainfeatureViewModel.PredictionViewModelFactory
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = currentBackStackEntry?.destination?.route
+
+    val context = LocalContext.current
+    val sharedpreferences = Sharedpreferences(context)
+    val viewModelFactory = PredictionViewModelFactory(sharedpreferences)
+    val predictionViewModel: PredictionViewModel = viewModel(
+        factory = viewModelFactory
+    )
 
     NavigationBar(
         containerColor = Color.White,
@@ -49,11 +61,16 @@ fun BottomNavigationBar(navController: NavController) {
         )
         NavigationBarItem(
             selected = currentDestination == "community",
-            onClick = { navController.navigate("community") {
+            onClick = {
+                navController.navigate("community") {
                 popUpTo(navController.graph.startDestinationId) { saveState = true }
                 launchSingleTop = true
                 restoreState = true
-            }},
+            }
+           predictionViewModel.getPrediction(sharedpreferences.getUserToken().toString())
+                println("community name: ${sharedpreferences.getPredictionValue()}")
+//                println("community name : ${sharedpreferences.getPredictionValue()}")
+                      },
             icon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_community),
