@@ -18,6 +18,8 @@ import com.example.quitzone.ui.mainfeature.BottomNavigationBar
 import com.example.quitzone.ui.mainfeature.Community
 import com.example.quitzone.ui.mainfeature.CommunityViewModel
 import com.example.quitzone.ui.mainfeature.Diary
+import com.example.quitzone.ui.mainfeature.NewDiaryEntryScreen
+
 import com.example.quitzone.ui.questionare.AgePage
 import com.example.quitzone.ui.questionare.AlcoholConsumptionPage
 import com.example.quitzone.ui.questionare.CigarretesPricePage
@@ -39,7 +41,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             QuitZoneTheme {
                 val navController = rememberNavController()
-                NavHost(navController, startDestination = "home") {
+                NavHost(navController, startDestination = "diary") {
                     composable("login") { LogIn(navController) }
                     composable("signup") { SignUp(navController) }
                     //1
@@ -67,6 +69,7 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("community"){ Community(navController) }
                     composable("diary"){(Diary(navController))}
+                    composable("newDiaryEntry") { NewDiaryEntryScreen(navController) }
                     composable("home"){(Home(navController))}
                 }
             }
