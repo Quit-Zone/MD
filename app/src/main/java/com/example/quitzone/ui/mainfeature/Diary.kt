@@ -72,7 +72,7 @@ fun Diary(navController: NavController) {
                     )
                     Spacer(Modifier.height(25.dp))
                     NewDiaryButton {
-                        //NewEntry Daily Action
+                        navController.navigate("newDiaryEntry")
                     }
                     Spacer(Modifier.height(25.dp))
                 }
@@ -89,7 +89,7 @@ fun Diary(navController: NavController) {
                         .fillMaxSize(),
                     verticalArrangement = Arrangement.Top,
                 ) {
-                    DiaryEntryCard(entry = DiaryEntry("17 Dec 2023", R.drawable.ic_person, 3, 9))
+                    DiaryEntryCard(entry = DiaryEntry("17 Dec 2023", R.drawable.ic_happy, 3, 9))
                 }
             }
         }
@@ -147,7 +147,8 @@ fun DiaryEntryCard(entry: DiaryEntry) {
                 Icon(
                     painter = painterResource(id = entry.statusIcon),
                     contentDescription = "Status Icon",
-                    modifier = Modifier.size(44.dp)
+                    modifier = Modifier.size(44.dp),
+                    tint = Color.Unspecified // This removes the default black tint
                 )
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
