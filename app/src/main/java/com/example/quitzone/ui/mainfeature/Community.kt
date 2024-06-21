@@ -60,7 +60,7 @@ fun Community(navController: NavController, viewModel: CommunityViewModel = andr
         },
         containerColor = ungulagi
     ) {
-        Column {
+        Column(Modifier.padding(bottom = 80.dp)) {
             Box(modifier = Modifier.background(ungulagi).fillMaxWidth().padding(top = 50.dp , bottom = 20.dp), contentAlignment = Alignment.Center) {
                 Text(
                     text = "Community",
@@ -123,7 +123,6 @@ fun Community(navController: NavController, viewModel: CommunityViewModel = andr
                 }
             }
         }
-
     }
 }
 
