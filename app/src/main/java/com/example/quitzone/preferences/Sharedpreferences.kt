@@ -21,6 +21,8 @@ class Sharedpreferences(context: Context) {
     private val height = "height"
     private val weight = "weight"
     private val prediction = "prediction"
+    private val wallet = "wallet"
+    private val localWallet = "localWallet"
     private val sharedPreference: SharedPreferences
 
     init {
@@ -179,5 +181,22 @@ class Sharedpreferences(context: Context) {
 
     fun getPredictionValue() : String? {
         return sharedPreference.getString(this.prediction, "")
+    }
+
+
+    fun setWalletValue(wallet: Double) {
+        sharedPreference.edit().putFloat("wallet", wallet.toFloat()).apply()
+    }
+
+    fun getWalletValue(): Double {
+        return sharedPreference.getFloat("wallet", 0.0f).toDouble()
+    }
+
+    fun setLocalWalletValue(localWallet: Int) {
+        sharedPreference.edit().putInt(this.localWallet, localWallet).apply()
+    }
+
+    fun getLocalWalletValue() : Int {
+        return sharedPreference.getInt(this.localWallet, 0)
     }
 }

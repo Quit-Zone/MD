@@ -19,6 +19,8 @@ import com.example.quitzone.ui.theme.ungulagi
 import com.example.quitzone.ui.theme.ungulagilagi
 import com.example.quitzone.viewmodel.mainfeatureViewModel.PredictionViewModel
 import com.example.quitzone.viewmodel.mainfeatureViewModel.PredictionViewModelFactory
+import com.example.quitzone.viewmodel.mainfeatureViewModel.WalletViewModel
+import com.example.quitzone.viewmodel.mainfeatureViewModel.WalletViewModelFactory
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
@@ -31,6 +33,9 @@ fun BottomNavigationBar(navController: NavController) {
     val predictionViewModel: PredictionViewModel = viewModel(
         factory = viewModelFactory
     )
+    val walletViewModel : WalletViewModel = viewModel(
+        factory = WalletViewModelFactory(sharedpreferences)
+    )
 
     NavigationBar(
         containerColor = Color.White,
@@ -42,7 +47,9 @@ fun BottomNavigationBar(navController: NavController) {
                 popUpTo(navController.graph.startDestinationId) { saveState = true }
                 launchSingleTop = true
                 restoreState = true
-            }},
+            }
+                      walletViewModel.getWallet(sharedpreferences.getUserToken().toString())
+                      },
             icon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_home),

@@ -28,12 +28,28 @@ data class SignUpResponse(
 )
 
 data class PredictionResponse(
-    @SerializedName("status") val status: String,
-    @SerializedName("data") val data: DataPredict
+//    @SerializedName("status")
+    val status: String,
+//    @SerializedName("data")
+    val data: DataPredict
 )
 
 data class DataPredict(
-    @SerializedName("kategori") val kategori: String
+//    @SerializedName("kategori")
+    val kategori: String
+)
+
+data class  Wallet(
+    val amount : Double
+)
+
+data class WalletResponse(
+    val status: String,
+    val data: List<DataWallet> // Changed from DataWallet to List<DataWallet>
+)
+
+data class DataWallet(
+    val amountget: Double
 )
 
 
@@ -52,6 +68,12 @@ interface ApiService {
 
     @GET("predict")
     suspend fun getPrediction(@Header("Authorization") token: String): Response<PredictionResponse>
+
+    @POST("wallet")
+    suspend fun postWallet(@Header("Authorization") token: String, @Body wallet: Wallet) : Response<Void>
+
+    @GET("wallet")
+    suspend fun getWallet(@Header("Authorization") token: String) : Response<WalletResponse>
 }
 
 

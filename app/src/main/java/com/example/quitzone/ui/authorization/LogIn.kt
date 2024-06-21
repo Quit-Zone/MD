@@ -220,6 +220,7 @@ fun LogIn(navController: NavController) {
                 println("token : ${viewModel.userId}")
                 sharedpreferences.saveUserToken(viewModel.userId)
                 sharedpreferences.saveUserId(viewModel.IDUSER)
+                sharedpreferences.saveUserName(viewModel.userName)
                 println("token tersimpan : ${sharedpreferences.getUserToken().toString()}")
                 navController.navigate("agepage")
             }

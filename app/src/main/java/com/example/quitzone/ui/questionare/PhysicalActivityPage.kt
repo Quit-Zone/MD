@@ -36,7 +36,7 @@ fun PhysicalActivityPage(navController: NavController) {
         "Lightly active (light exercise/sports 1-3 days/week)",
         "Moderately active (moderate exercise/sports 3-5 days/week)",
         "Very active (hard exercise/sports 6-7 days a week)",
-        "Super active (very hard exercise/sports, physical job)"
+        "Super active (very hard exercise/sports, physical job or training twice a day)"
     )
 
     Scaffold(modifier = Modifier.padding(15.dp)) { innerPadding ->
