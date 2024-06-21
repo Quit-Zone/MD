@@ -27,6 +27,7 @@ class PredictionViewModel(private val sharedpreferences: Sharedpreferences) : Vi
                     // Handle successful response
                     Log.d("PredictionViewModel", "Prediction successful")
                     println("Prediction successful")
+
                 } else {
                     // Handle unsuccessful response
                     Log.e("PredictionViewModel", "Prediction failed: ${response.errorBody()?.string()}")
@@ -49,13 +50,17 @@ class PredictionViewModel(private val sharedpreferences: Sharedpreferences) : Vi
                         sharedpreferences.setPredictionValue(it.data.kategori)
                         Log.d("PredictionViewModel", "Prediction successful: ${it.data.kategori}")
                         println("Prediction successful: ${it.data.kategori}")
+                        sharedpreferences.saveUserPredict("Prediction successful")
+                        println(sharedpreferences.getUserPredict())
                     } ?: run {
                         Log.e("PredictionViewModel", "Response body is null")
                         println("Response body is null")
+
                     }
                 } else {
                     Log.e("PredictionViewModel", "Prediction failed: ${response.errorBody()?.string()}")
                     println("Prediction failed: ${response.errorBody()?.string()}")
+                    sharedpreferences.saveUserPredict("Prediction failed")
                 }
             } catch (e: Exception) {
                 Log.e("PredictionViewModel", "Prediction failed: ${e.message}")
@@ -69,7 +74,7 @@ class PredictionViewModel(private val sharedpreferences: Sharedpreferences) : Vi
                 sharedpreferences.setPredictionValue("Creatively")
             }else if (sharedpreferences.getPredictionValue() == "Relaxed and leisurely") {
                 sharedpreferences.setPredictionValue("Relaxed")
-            }else {
+            }else if (sharedpreferences.getPredictionValue() == "Socially involved") {
                 sharedpreferences.setPredictionValue("Socially")
             }
         }

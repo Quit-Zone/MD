@@ -45,6 +45,8 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import com.example.quitzone.preferences.Sharedpreferences
+import com.example.quitzone.viewmodel.mainfeatureViewModel.PredictionViewModel
+import com.example.quitzone.viewmodel.mainfeatureViewModel.PredictionViewModelFactory
 import com.example.quitzone.viewmodel.profilingViewModel.LoginViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,6 +57,12 @@ fun LogIn(navController: NavController) {
     val viewModel: LoginViewModel = viewModel()
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+
+    val viewModelFactory = PredictionViewModelFactory(sharedpreferences)
+    val predictionViewModel: PredictionViewModel = viewModel(
+        factory = viewModelFactory
+    )
 
 
     // Observe login state changes
@@ -174,6 +182,7 @@ fun LogIn(navController: NavController) {
             Button(
                 onClick = {
                     viewModel.login(email, password)
+                    predictionViewModel.getPrediction(sharedpreferences.getUserToken().toString())
 
                 },
                 modifier = Modifier
@@ -226,7 +235,12 @@ fun LogIn(navController: NavController) {
                 sharedpreferences.saveUserId(viewModel.IDUSER)
                 sharedpreferences.saveUserName(viewModel.userName)
                 println("token tersimpan : ${sharedpreferences.getUserToken().toString()}")
-                navController.navigate("agepage")
+
+                if (sharedpreferences.getUserPredict() == "Prediction successful"){
+                    navController.navigate("home")
+                }else {
+                    navController.navigate("agepage")
+                }
             }
         }
     }

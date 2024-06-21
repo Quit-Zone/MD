@@ -23,6 +23,7 @@ class Sharedpreferences(context: Context) {
     private val prediction = "prediction"
     private val wallet = "wallet"
     private val localWallet = "localWallet"
+    private val statusPredict = "statusPredict"
     private val sharedPreference: SharedPreferences
 
     init {
@@ -35,6 +36,14 @@ class Sharedpreferences(context: Context) {
 
     fun getStatusLogin(): Boolean {
         return sharedPreference.getBoolean(login, false)
+    }
+
+    fun saveUserPredict(statePredict : String) {
+        sharedPreference.edit().putString(statusPredict, statePredict).apply()
+    }
+
+    fun getUserPredict(): String? {
+        return sharedPreference.getString(statusPredict, " ")
     }
 
     fun saveUserToken(token: String) {
