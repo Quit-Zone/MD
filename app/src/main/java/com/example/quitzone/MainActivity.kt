@@ -8,8 +8,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.ui.input.key.Key.Companion.Home
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -19,19 +29,9 @@ import com.example.quitzone.ui.mainfeature.Community
 import com.example.quitzone.ui.mainfeature.CommunityViewModel
 import com.example.quitzone.ui.mainfeature.Diary
 import com.example.quitzone.ui.mainfeature.NewDiaryEntryScreen
-
-import com.example.quitzone.ui.questionare.AgePage
-import com.example.quitzone.ui.questionare.AlcoholConsumptionPage
-import com.example.quitzone.ui.questionare.CigarretesPricePage
-import com.example.quitzone.ui.questionare.GenderPage
-import com.example.quitzone.ui.questionare.HeightPage
-import com.example.quitzone.ui.questionare.HobbyPage
-import com.example.quitzone.ui.questionare.LocationPage
-import com.example.quitzone.ui.questionare.PhysicalActivityPage
-import com.example.quitzone.ui.questionare.SmokingHabitsPage
-import com.example.quitzone.ui.questionare.WeightPage
+import com.example.quitzone.ui.questionare.*
 import com.example.quitzone.ui.theme.QuitZoneTheme
-import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("NewApi")
@@ -42,45 +42,51 @@ class MainActivity : ComponentActivity() {
             QuitZoneTheme {
                 val navController = rememberNavController()
 
-                NavHost(navController, startDestination = "login") {
-
+                NavHost(navController, startDestination = "splash") {
+                    composable("splash") { SplashScreen(navController) }
                     composable("login") { LogIn(navController) }
                     composable("signup") { SignUp(navController) }
-                    //1
                     composable("agepage") { AgePage(navController) }
-                    //2
                     composable("genderpage") { GenderPage(navController) }
-                    //3
                     composable("smokinghabits") { SmokingHabitsPage(navController) }
-                    //4
                     composable("alcoholconsumption") { AlcoholConsumptionPage(navController) }
-                    //5
                     composable("physicalactivity") { PhysicalActivityPage(navController) }
-                    //6
                     composable("hobbypage") { HobbyPage(navController) }
-                    //7
                     composable("heightpage") { HeightPage(navController) }
-                    //8
                     composable("weightpage") { WeightPage(navController) }
-                    //9
                     composable("locationpage") { LocationPage(navController) }
-                    //10
                     composable("cigarettepricepage") { CigarretesPricePage(navController) }
-                    //11
-                    composable("getstartedpage") { GetStartedPage(navController)
-                    }
-                    composable("community"){ Community(navController) }
-                    composable("diary"){(Diary(navController))}
+                    composable("getstartedpage") { GetStartedPage(navController) }
+                    composable("community") { Community(navController) }
+                    composable("diary") { Diary(navController) }
                     composable("newDiaryEntry") { NewDiaryEntryScreen(navController) }
-                    composable("home"){(Home(navController))}
+                    composable("home") { Home(navController) }
                 }
             }
         }
     }
 }
 
+@Composable
+fun SplashScreen(navController: NavController) {
+    LaunchedEffect(Unit) {
+        delay(1500) // Durasi splash screen (3 detik)
+        navController.navigate("login") {
+            popUpTo("splash") { inclusive = true }
+        }
+    }
 
-
-
-
-
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.ic_appicon), // Ganti dengan logo aplikasi Anda
+            contentDescription = "App Logo",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.size(200.dp)
+        )
+    }
+}
