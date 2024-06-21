@@ -34,6 +34,7 @@ import androidx.navigation.NavController
 import com.example.quitzone.R
 import com.example.quitzone.preferences.Sharedpreferences
 import com.example.quitzone.retrofit.RetrofitInstance
+import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.viewmodel.mainfeatureViewModel.PredictionViewModel
 import com.example.quitzone.viewmodel.mainfeatureViewModel.PredictionViewModelFactory
 import com.example.quitzone.viewmodel.profilingViewModel.ProfileViewModel
@@ -91,7 +92,7 @@ fun GetStartedPage(navController: NavController) {
             Box(
                 modifier = Modifier
                     .size(width = 250.dp, height = 49.dp)
-                    .background(Color.Green, shape = RoundedCornerShape(10.dp))
+                    .background(Ungu, shape = RoundedCornerShape(10.dp))
                     .clickable {
                         // Post the profile using ProfileViewModel
                         val Token = sharedpreferences.getUserToken()
