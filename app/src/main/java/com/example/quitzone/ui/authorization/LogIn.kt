@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -60,9 +61,11 @@ fun LogIn(navController: NavController) {
     val loginState by viewModel.loginState.observeAsState("")
 
     Scaffold(
-        modifier = Modifier.padding(15.dp),
+        modifier = Modifier.padding().background(color = Color.White),
+        containerColor = Color.White,
         topBar = {
             TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White),
                 title = {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                         Text(
@@ -85,8 +88,9 @@ fun LogIn(navController: NavController) {
 
         Column(
             modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxSize(),
+                .padding(20.dp)
+                .fillMaxSize()
+                .background(Color.White),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {

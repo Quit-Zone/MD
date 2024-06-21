@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.quitzone.ui.theme.background
 import com.example.quitzone.viewmodel.profilingViewModel.SignUpViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,13 +50,17 @@ fun SignUp(navController: NavController) {
     var password by remember { mutableStateOf("") }
 
     Scaffold(
-        modifier = Modifier.padding(15.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.White),
+        containerColor = Color.White,
         topBar = {
             TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White),
                 title = {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                         Text(
-                            text = "SignUp",
+                            text = "Sign Up",
                             style = TextStyle(
                                 color = Color.Black,
                                 fontSize = 25.sp,
@@ -73,11 +79,13 @@ fun SignUp(navController: NavController) {
 
         Column(
             modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxSize(),
+                .padding(20.dp)
+                .fillMaxSize()
+                .background(Color.White),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
+
+            ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -239,6 +247,3 @@ fun SignUp(navController: NavController) {
         }
     }
 }
-
-
-
