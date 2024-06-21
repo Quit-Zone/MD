@@ -12,9 +12,6 @@ import retrofit2.Response
 
 class SignUpViewModel : ViewModel() {
     var signUpState by mutableStateOf("")
-    var userId by mutableStateOf("")
-    var userName by mutableStateOf("")
-    var userEmail by mutableStateOf("")
 
     fun signUp(username: String, email: String, password: String) {
         val signUpRequest = SignUpRequest(username, email, password)
@@ -23,9 +20,6 @@ class SignUpViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     val signUpResponse = response.body()
                     if (signUpResponse != null) {
-                        userId = signUpResponse.id
-                        userName = signUpResponse.name
-                        userEmail = signUpResponse.email
                         signUpState = "Sign Up Successful: ${signUpResponse.message}"
                     } else {
                         signUpState = "Sign Up Failed: Empty response body"

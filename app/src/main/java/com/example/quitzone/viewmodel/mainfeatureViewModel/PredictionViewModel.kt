@@ -61,12 +61,13 @@ class PredictionViewModel(private val sharedpreferences: Sharedpreferences) : Vi
                 Log.e("PredictionViewModel", "Prediction failed: ${e.message}")
                 println("Prediction failed: ${e.message}")
             }
+            println("hasil prediksi : ${sharedpreferences.getPredictionValue()}")
 
-            if (sharedpreferences.getPredictionValue() == "Physically Active"){
+            if (sharedpreferences.getPredictionValue() == "Physically active"){
                 sharedpreferences.setPredictionValue("Physically")
-            }else if (sharedpreferences.getPredictionValue() == "Creatively Engaged") {
+            }else if (sharedpreferences.getPredictionValue() == "Creatively engaged") {
                 sharedpreferences.setPredictionValue("Creatively")
-            }else if (sharedpreferences.getPredictionValue() == "Relaxed and Leisurely") {
+            }else if (sharedpreferences.getPredictionValue() == "Relaxed and leisurely") {
                 sharedpreferences.setPredictionValue("Relaxed")
             }else {
                 sharedpreferences.setPredictionValue("Socially")
