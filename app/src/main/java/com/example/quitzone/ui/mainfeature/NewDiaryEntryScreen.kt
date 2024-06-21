@@ -23,9 +23,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.quitzone.R
-import com.example.quitzone.ui.theme.Ungu
 import com.example.quitzone.ui.theme.ungulagi
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -34,7 +34,7 @@ import java.time.format.DateTimeFormatter
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NewDiaryEntryScreen(navController: NavController) {
+fun NewDiaryEntryScreen(navController: NavController, viewModel: DiaryViewModel = viewModel()) {
     val currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
     var date by remember { mutableStateOf(currentDate) }
     var cravings by remember { mutableStateOf(0) }
@@ -65,19 +65,18 @@ fun NewDiaryEntryScreen(navController: NavController) {
                 modifier = Modifier
                     .fillMaxHeight().fillMaxWidth()
                     .background(Color.White, RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp))
-                    .padding(30.dp), // Set the same background color as Scaffold if needed
+                    .padding(30.dp),
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally){
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
                         text = "How Do You Feel Today?",
                         style = TextStyle(
                             fontSize = 20.sp,
                             fontWeight = FontWeight(600),
                             color = Color(0xFF1E1E1E),
-
-                            )
+                        )
                     )
                     Text(
                         text = date,
@@ -105,7 +104,8 @@ fun NewDiaryEntryScreen(navController: NavController) {
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 SaveDiaryButton {
-                    // Save entry logic here
+                    val newEntry = DiaryEntry(date, statusIcon, cravings, severity)
+                    viewModel.addDiaryEntry(newEntry)
                     navController.popBackStack()
                 }
             }
@@ -231,5 +231,3 @@ fun SaveDiaryButton(onClick: () -> Unit){
         }
     }
 }
-
-
